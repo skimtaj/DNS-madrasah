@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Animated OTP Verification</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --accent: #0ea5e9;
+            --accent-dark: #0284c7;
+            --muted: #475569;
+            --danger: #ef4444;
+            --success: #22c55e;
+            --radius: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: #1e293b;
+            padding: 20px;
+            background-image:
+                radial-gradient(at 80% 20%, rgba(14, 165, 233, 0.12) 0, transparent 60%),
+                radial-gradient(at 20% 80%, rgba(2, 132, 199, 0.12) 0, transparent 60%);
+        }
+
+        .card {
+            width: 100%;
+            max-width: 420px;
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 28px 24px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            animation: fadeUp 0.8s ease forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent), var(--accent-dark));
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-circle {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: linear-gradient(to bottom right, var(--accent), var(--accent-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            box-shadow: 0 5px 10px rgba(14, 165, 233, 0.25);
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.08);
+            }
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #0f172a;
+            text-align: center;
+            font-weight: 700;
+            animation: fadeIn 1s ease forwards;
+            opacity: 0;
+        }
+
+        .lead {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 24px;
+            text-align: center;
+            line-height: 1.4;
+            animation: fadeIn 1.2s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .otp-container {
+            margin-bottom: 20px;
+        }
+
+        .otp-input {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            background: #f9fafb;
+            color: #0f172a;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 6px;
+            text-align: center;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .otp-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+            background: #fff;
+            transform: scale(1.02);
+        }
+
+        .otp-input.error {
+            border-color: var(--danger);
+        }
+
+        .otp-input.success {
+            border-color: var(--success);
+        }
+
+        .helper {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .btn {
+            border: 0;
+            background: var(--accent);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 4px 10px rgba(14, 165, 233, 0.25);
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn.secondary {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+        }
+
+        .btn.secondary:hover {
+            background: #e2e8f0;
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 20px 18px;
+            }
+
+            .logo-circle {
+                width: 48px;
+                height: 48px;
+                font-size: 20px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .lead {
+                font-size: 13px;
+            }
+
+            .otp-input {
+                padding: 10px;
+                font-size: 16px;
+                letter-spacing: 5px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+                font-size: 14px;
+            }
+
+            .helper {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <% if (messages.success) { %>
+        <script>
+            Swal.fire({
+                toast: true,
+                position: "top-end",
+                icon: "success",
+                title: "<%= messages.success %>",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: "#ffffff",
+                iconColor: "#00b894",
+                color: "#333",
+                customClass: {
+                    popup: 'custom-swal-toast'
+                },
+                didOpen: (toast) => {
+                    toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                    toast.style.borderRadius = '8px';
+                    toast.style.padding = '0.75rem 1.25rem';
+                }
+            });
+        </script>
+        <% } %>
+
+
+            <% if (messages.error) { %>
+                <script>
+                    Swal.fire({
+                        toast: true,
+                        position: "top-end",
+                        icon: "error",
+                        title: "<%= messages.error %>",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        background: "#ffffff",
+                        iconColor: "red",
+                        color: "#333",
+                        customClass: {
+                            popup: 'custom-swal-toast'
+                        },
+                        didOpen: (toast) => {
+                            toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                            toast.style.borderRadius = '8px';
+                            toast.style.padding = '0.75rem 1.25rem';
+                        }
+                    });
+                </script>
+                <% } %>
+
+
+
+
+
+
+                    <div class="card" role="region" aria-label="OTP verification">
+                        <div class="logo">
+                            <div class="logo-circle">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                        </div>
+
+                        <h1>Enter verification code</h1>
+                        <p class="lead">We sent a 6-digit code to your. Enter it below to continue.</p>
+
+                        <form id="otp-form" method="post">
+                            <div class="otp-container">
+                                <input type="text" id="otp-input" class="otp-input" inputmode="numeric" pattern="[0-9]*"
+                                    maxlength="6" placeholder="••••••" aria-label="6 digit code" name="otp" />
+                            </div>
+
+                            <div class="helper">
+                                <button type="submit" class="btn" id="verify">
+                                    <i class="fas fa-check-circle"></i> Verify
+                                </button>
+
+                                <button type="button" class="btn secondary" id="back">
+                                    <i class="fas fa-arrow-left"></i> Back
+                                </button>
+                            </div>
+                        </form>
+
+
+</body>
+
+</html>
