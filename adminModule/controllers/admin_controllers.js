@@ -637,11 +637,17 @@ const excelStudent = async (req, res) => {
         ]);
     })
 
-
     res.setHeader("Content-Disposition", "attachment; filename=students.xlsx");
     await workbook.xlsx.write(res);
     res.end();
 
 }
 
-module.exports = { excelStudent, resetPasswordPost, logout, forgetPassword, resetPassword, editFeesPost, editFees, deleteFees, feesList, addFeesPost, addFees, downloadApplication, editStudentPost, editStudent, stuentRegiPost, stuentRegi, paymentSS, viewStuent, studentList, downloadResult, deleteResult, insertResultPost, studentResult, insertResult, adminDashboard, adminLoginPost, adminCredential, adminSignupPost };
+const deleteStudent = async (req, res) => {
+
+    await student_regi.findByIdAndDelete(req.params.id);
+    req.flash('success', 'Student deleted successfully'); 
+    return res.redirect('/dnsmadrasah.org/dns-admin/student-list')
+}
+
+module.exports = { deleteStudent, excelStudent, resetPasswordPost, logout, forgetPassword, resetPassword, editFeesPost, editFees, deleteFees, feesList, addFeesPost, addFees, downloadApplication, editStudentPost, editStudent, stuentRegiPost, stuentRegi, paymentSS, viewStuent, studentList, downloadResult, deleteResult, insertResultPost, studentResult, insertResult, adminDashboard, adminLoginPost, adminCredential, adminSignupPost };

@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-const { excelStudent, resetPasswordPost, logout, forgetPassword, resetPassword, editFeesPost, editFees, deleteFees, feesList, addFeesPost, addFees, downloadApplication, editStudentPost, editStudent, stuentRegiPost, stuentRegi, paymentSS, viewStuent, studentList, downloadResult, deleteResult, insertResultPost, studentResult, insertResult, adminDashboard, adminLoginPost, adminCredential, adminSignupPost } = require('../../adminModule/controllers/admin_controllers')
+const { deleteStudent, excelStudent, resetPasswordPost, logout, forgetPassword, resetPassword, editFeesPost, editFees, deleteFees, feesList, addFeesPost, addFees, downloadApplication, editStudentPost, editStudent, stuentRegiPost, stuentRegi, paymentSS, viewStuent, studentList, downloadResult, deleteResult, insertResultPost, studentResult, insertResult, adminDashboard, adminLoginPost, adminCredential, adminSignupPost } = require('../../adminModule/controllers/admin_controllers')
 
 route.get('/dnsmadrasah.org/admin-login', adminCredential);
 route.post('/dnsmadrasah.org/admin-login', adminLoginPost)
@@ -68,7 +68,9 @@ route.post('/dnsmadrasah.org/reset-password/:id', resetPasswordPost);
 
 route.get('/logout', logout);
 
-route.get('/download-student-excel', auth, excelStudent)
+route.get('/download-student-excel', auth, excelStudent);
+
+route.get('/delete-student/:id', deleteStudent)
 
 
 
