@@ -381,6 +381,7 @@ const downloadApplication = async (req, res) => {
             image = await pdfDoc.embedPng(imageBytes);
         }
 
+
         firstPage.drawImage(image, {
             x: 450,
             y: 700,
@@ -423,7 +424,6 @@ Payment Status: ${studentSourse.payment_Status}
 Application Date: ${studentSourse.application_date}
 `;
 
-
         const qrcodeWithContent = await qrcodeGenerat(qrcodeContent);
 
         const embedImage = await pdfDoc.embedPng(qrcodeWithContent);
@@ -438,7 +438,10 @@ Application Date: ${studentSourse.application_date}
 
 
     catch (err) {
-        console.log('This is pdf generating error', err)
+
+        console.log('This is pdf generating error', err);
+        req.flash('error', 'Pdf generating error');
+        return res.redirect('/dnsmadrasah.org/dns-admin/student-list')
     }
 
 
