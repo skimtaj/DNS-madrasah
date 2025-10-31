@@ -173,7 +173,7 @@ const studentRegiPost = async (req, res) => {
             }
         });
 
-        console.log(studentRegidata)
+        console.log(studentRegidata);
 
         req.flash('success', 'Student registration completed successfully');
         return res.redirect(`/dnsmadrasah.org/students-application/${new_student_regi._id}`)
@@ -298,16 +298,19 @@ Application Date: ${studentSourse.application_date}
         res.setHeader('Content-Disposition', 'attachment; filename="Student_Application.pdf"');
         res.end(pdfBytes);
 
+
+        return res.redirect('/dnsmadrasah.org/student-registration')
+
     }
 
 
     catch (err) {
 
-        
+
         console.log('This is Student pdf generating error', err)
 
         req.flash('error', 'PDF generation failed. Please refresh the page or try again.')
-        return res.redirect(`/download-student-application/${studentSourse._id}`)
+        return res.redirect('/dnsmadrasah.org/student-registration')
     }
 
 

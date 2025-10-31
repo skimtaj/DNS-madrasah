@@ -436,7 +436,6 @@ Application Date: ${studentSourse.application_date}
 
     }
 
-
     catch (err) {
 
         console.log('This is pdf generating error', err);

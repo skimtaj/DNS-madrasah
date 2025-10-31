@@ -278,8 +278,7 @@
     <body>
 
 
-
-        <% if (typeof messages !=='undefined' && messages.success) { %>
+        <% if ( messages.success) { %>
             <script>
                 Swal.fire({
                     toast: true,
@@ -304,7 +303,7 @@
             </script>
             <% } %>
 
-                <% if (typeof messages !=='undefined' && messages.error) { %>
+                <% if ( messages.error) { %>
                     <script>
                         Swal.fire({
                             toast: true,
