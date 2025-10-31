@@ -1,37 +1,40 @@
 const express = require('express');
 const app = express();
-require('dotenv').config();
+const db = require('./DB');
 const path = require('path');
+app.set('view engine', 'ejs');
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
-const db = require('./DB')
+require('dotenv').config();
+const cookieParser = require('cookie-parser');
+app.use(cookieParser())
+
 
 app.use(session({
-    secret: 'your_secret_key',
+    secret: process.env.session_secret_key,
     resave: false,
     saveUninitialized: true,
 }));
 
-const cookieParser = require('cookie-parser');
-app.use(cookieParser())
-
 app.use(flash());
-app.use((req, res, next) => { res.locals.messages = req.flash(); next(); });
 
+app.use((req, res, next) => { res.locals.messages = req.flash(); next(); });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'Public')));
-app.set('view engine', 'ejs');
+app.use('/Uploads', express.static(path.join(__dirname, 'Uploads')));
+
 app.use(bodyParser.json());
 
+app.use('/', require('./userModule/routes/user_routes'));
 
-app.use('/', require('./userModule/routes/userRoutes'));
-app.use('/', require('./adminModule/routes/adminRoutes'))
+app.use('/', require('./adminModule/routes/admin_routes'))
 
-const PORT = process.env.PORT || 3000;
-app.listen(3000, () => {
 
-    console.log('Server is connected')
+const PORT = process.env.PORT || 3000
+
+app.listen(PORT, () => {
+    console.log('Server is conneceted')
 })

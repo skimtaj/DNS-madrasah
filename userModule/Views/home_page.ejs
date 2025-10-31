@@ -1,0 +1,2989 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNS Madrasah | Islamic & Modern Culture Institute</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #0D47A1;
+            --secondary: #D32F2E;
+            --accent: #11329F;
+            --light: #F8F9FA;
+            --dark: #212121;
+            --success: #27AE60;
+            --beige: #FCF3E3;
+            --brown: #85361F;
+            --black: #000000;
+            --gray: #999999;
+            --dark-bg: #121212;
+            --dark-card: #1e1e1e;
+            --dark-text: #e0e0e0;
+        }
+
+        body {
+            background: #ffffff;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        body.dark-mode .modern-notice-board,
+        body.dark-mode .achievers-section,
+        body.dark-mode .faq-section,
+        body.dark-mode .about-section,
+        body.dark-mode .contact-section,
+        body.dark-mode .mission-vision-section {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        body.dark-mode .notice-item,
+        body.dark-mode .achiever-card,
+        body.dark-mode .faq-item,
+        body.dark-mode .contact-form,
+        body.dark-mode .countdown-item,
+        body.dark-mode .mission-card,
+        body.dark-mode .vision-card {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        body.dark-mode .notice-item h4,
+        body.dark-mode .achiever-info h3,
+        body.dark-mode .faq-question h3,
+        body.dark-mode .contact-form label,
+        body.dark-mode .about-content h2,
+        body.dark-mode .about-content p,
+        body.dark-mode .mission-card h3,
+        body.dark-mode .vision-card h3 {
+            color: var(--dark-text);
+        }
+
+        body.dark-mode .notice-item p,
+        body.dark-mode .achiever-achievement,
+        body.dark-mode .faq-answer p,
+        body.dark-mode .contact-form input,
+        body.dark-mode .contact-form textarea,
+        body.dark-mode .about-content p,
+        body.dark-mode .mission-card p,
+        body.dark-mode .vision-card p {
+            color: var(--dark-text);
+        }
+
+        body.dark-mode .contact-form input,
+        body.dark-mode .contact-form textarea {
+            background: #2a2a2a;
+            border-color: #444;
+            color: var(--dark-text);
+        }
+
+        body.dark-mode .contact-form .form-group {
+            position: relative;
+        }
+
+        body.dark-mode .contact-form .floating-label {
+            color: var(--dark-text);
+        }
+
+        body.dark-mode .faq-answer {
+            background: var(--dark-bg);
+        }
+
+        body.dark-mode .faq-answer p {
+            color: var(--dark-text);
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .announcement-bar {
+            background: var(--accent);
+            color: white;
+            padding: 6px 0;
+            text-align: left;
+            font-size: 14px;
+            overflow: hidden;
+            position: relative;
+            height: 28px;
+            cursor: pointer;
+        }
+
+        .announcement-bar:hover .typing-text {
+            animation-play-state: paused;
+        }
+
+        .typing-text {
+            white-space: nowrap;
+            position: absolute;
+            left: 0;
+            top: 5px;
+            animation: scrollText 25s linear infinite;
+        }
+
+        .announcement-link {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+
+        .announcement-link:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        @keyframes scrollText {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #1E262D;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .logo-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .logo-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .logo-subtitle {
+            font-size: 12px;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            padding: 6px 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .login-btn {
+            background: linear-gradient(to right, var(--secondary), #F44336);
+            color: white !important;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(211, 47, 46, 0.3);
+            font-size: 14px;
+        }
+
+        .login-btn:hover {
+            box-shadow: 0 4px 10px rgba(211, 47, 46, 0.4);
+            background: linear-gradient(to right, #F44336, var(--secondary));
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 25px;
+            height: 18px;
+            cursor: pointer;
+            z-index: 1001;
+            position: relative;
+        }
+
+        .menu-toggle span {
+            height: 2.5px;
+            width: 100%;
+            background-color: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -5px);
+        }
+
+        .dark-mode-toggle {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: white;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .dark-mode-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Hero section with two columns */
+        .hero-container {
+            display: flex;
+            height: 80vh;
+            position: relative;
+            overflow: hidden;
+            margin: 20px 0;
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        /* Modern Notice Board - 30% width */
+        .modern-notice-board {
+            width: 30%;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 10;
+            position: relative;
+            border: 1px solid #e0e0e0;
+        }
+
+        .notice-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .notice-title {
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .notice-title:hover {
+            color: var(--secondary);
+        }
+
+        .notice-title i {
+            color: var(--secondary);
+        }
+
+        .notice-count {
+            background: var(--secondary);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .notice-list {
+            list-style: none;
+            max-height: calc(100% - 70px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) #f1f1f1;
+        }
+
+        .notice-list::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .notice-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .notice-list::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        .notice-list::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        .notice-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            background: white;
+            transition: all 0.3s ease;
+            border-left: 3px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .notice-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(13, 71, 161, 0.05) 0%, rgba(211, 47, 46, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .notice-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .notice-item:hover::before {
+            opacity: 1;
+        }
+
+        .notice-category {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .notice-item h4 {
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: var(--dark);
+            line-height: 1.3;
+        }
+
+        .notice-item p {
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .notice-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #888;
+        }
+
+        .notice-date {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .notice-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .notice-action {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .notice-action:hover {
+            color: var(--secondary);
+        }
+
+        /* Hero Slider - 70% width */
+        .hero-slider {
+            width: 70%;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .slider-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slider-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-slide.active {
+            opacity: 1;
+        }
+
+        .slider-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider-content {
+            position: absolute;
+            bottom: 100px;
+            left: 50px;
+            max-width: 600px;
+            color: white;
+            z-index: 5;
+        }
+
+        .slider-content h2 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .slider-content p {
+            font-size: 18px;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .slider-btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(211, 47, 46, 0.3);
+        }
+
+        .slider-btn:hover {
+            background: #F44336;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(211, 47, 46, 0.4);
+        }
+
+        .slider-nav {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .slider-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s;
+            font-size: 20px;
+        }
+
+        .slider-arrow:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .slider-arrow.prev {
+            left: 30px;
+        }
+
+        .slider-arrow.next {
+            right: 30px;
+        }
+
+        /* NEW: About Us Section - Smaller */
+        .about-section {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-image {
+            flex: 1;
+            position: relative;
+        }
+
+        .secretary-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .secretary-image:hover {
+            transform: scale(1.02);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            color: white;
+            padding: 15px;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .image-overlay h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .image-overlay p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .about-content {
+            flex: 2;
+        }
+
+        .about-content h2 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .about-content p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .about-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(13, 71, 161, 0.3);
+            font-size: 0.9rem;
+        }
+
+        .about-btn:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(13, 71, 161, 0.4);
+        }
+
+        /* Mission & Vision Section */
+        .mission-vision-section {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        }
+
+        .mission-vision-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .mission-card,
+        .vision-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--primary);
+            text-align: center;
+        }
+
+        .mission-card:hover,
+        .vision-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .mission-card h3,
+        .vision-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .mission-card p,
+        .vision-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        .mission-icon,
+        .vision-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* NEW COMPACT Countdown Section with Left Icons */
+        .countdown-section {
+            padding: 60px 20px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            margin: 40px;
+            border-radius: 20px;
+        }
+
+        .countdown-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .countdown-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .countdown-header h2 {
+            font-size: 2.2rem;
+            color: white;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .countdown-header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 500px;
+            margin: 0 auto;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .countdown-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            flex-shrink: 0;
+        }
+
+        /* Different professional colors for each box */
+        .countdown-item:nth-child(1) .countdown-icon {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .countdown-item:nth-child(2) .countdown-icon {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        .countdown-item:nth-child(3) .countdown-icon {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+
+        .countdown-item:nth-child(4) .countdown-icon {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+        }
+
+        .countdown-content {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+
+        .countdown-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 5px;
+            line-height: 1;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .countdown-plus {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.2rem;
+            color: white;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* UPDATED: Achievers Section with Scrolling System */
+        .achievers-section {
+            padding: 50px 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .achievers-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .achievers-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .achievers-header h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .achievers-header p {
+            font-size: 0.9rem;
+            color: #666;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .achievers-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            overflow-x: auto;
+            padding: 10px 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) #f1f1f1;
+        }
+
+        .achievers-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .achievers-grid::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .achievers-grid::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        .achievers-grid::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        .achiever-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-top: 3px solid var(--primary);
+            min-width: 220px;
+            min-height: 280px;
+        }
+
+        .achiever-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .achiever-image {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            overflow: hidden;
+            border: 2px solid var(--primary);
+            position: relative;
+        }
+
+        .achiever-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .achiever-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: 700;
+            box-shadow: 0 3px 8px rgba(255, 165, 0, 0.3);
+            border: 2px solid white;
+        }
+
+        .achiever-info h3 {
+            font-size: 0.95rem;
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .achiever-position {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 5px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .achiever-year {
+            color: #777;
+            font-size: 0.75rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .achiever-achievement {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 6px 8px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            color: #555;
+            line-height: 1.3;
+            margin-top: 8px;
+            border-left: 2px solid var(--primary);
+        }
+
+        /* NEW: Contact Section */
+        .contact-section {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .contact-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .contact-header h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .contact-header p {
+            font-size: 0.9rem;
+            color: #666;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact-content {
+            display: flex;
+            gap: 40px;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .contact-card h3 {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .contact-detail i {
+            color: var(--primary);
+            margin-top: 3px;
+        }
+
+        .contact-detail div {
+            flex: 1;
+        }
+
+        .contact-detail h4 {
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+            color: var(--dark);
+        }
+
+        .contact-detail p {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .contact-link {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-link:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        .contact-form {
+            flex: 1;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .floating-label {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            font-size: 0.9rem;
+            color: #999;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            background: white;
+            padding: 0 5px;
+        }
+
+        body.dark-mode .floating-label {
+            background: var(--dark-bg);
+        }
+
+        .form-group.focused .floating-label,
+        .form-group:not(.empty) .floating-label {
+            top: -10px;
+            font-size: 0.75rem;
+            color: var(--primary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(13, 71, 161, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(13, 71, 161, 0.3);
+            font-size: 0.9rem;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(13, 71, 161, 0.4);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .faq-header h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .faq-header p {
+            font-size: 0.9rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .faq-question {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            cursor: pointer;
+            background: white;
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #f8f9fa;
+        }
+
+        .faq-question h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 0;
+            flex: 1;
+        }
+
+        .faq-icon {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            font-size: 0.7rem;
+        }
+
+        .faq-item.active .faq-icon {
+            background: var(--secondary);
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 20px 15px;
+            max-height: 300px;
+        }
+
+        .faq-answer p {
+            color: #555;
+            line-height: 1.6;
+            margin: 0;
+            font-size: 0.85rem;
+        }
+
+        /* NEW: Popup Modal */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup-modal {
+            background: white;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+
+        .popup-overlay.active .popup-modal {
+            transform: translateY(0);
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--secondary);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .popup-close:hover {
+            background: #F44336;
+            transform: rotate(90deg);
+        }
+
+        .popup-header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .popup-header h2 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .popup-header p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .popup-content {
+            margin-bottom: 20px;
+        }
+
+        .popup-content p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .popup-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .popup-btn {
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .popup-btn.primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 3px 8px rgba(13, 71, 161, 0.3);
+        }
+
+        .popup-btn.primary:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .popup-btn.secondary {
+            background: #f8f9fa;
+            color: #555;
+            border: 1px solid #ddd;
+        }
+
+        .popup-btn.secondary:hover {
+            background: #e9ecef;
+        }
+
+        /* Animation for numbers */
+        @keyframes countUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .countdown-number.animated {
+            animation: countUp 1s ease-out;
+        }
+
+        /* Sticky buttons - Smaller size */
+        .sticky-buttons {
+            position: fixed;
+            right: 15px;
+            bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 999;
+        }
+
+        .sticky-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .sticky-btn.whatsapp {
+            background: #25D366;
+        }
+
+        .sticky-btn.phone {
+            background: var(--primary);
+        }
+
+        .sticky-btn.email {
+            background: #D44638;
+        }
+
+        .sticky-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #1E262D;
+            color: white;
+            padding: 20px;
+            position: relative;
+        }
+
+        .footer-bottom {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .footer-bottom p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin: 0;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 1024px) {
+            .hero-container {
+                flex-direction: column;
+                height: auto;
+                padding: 0;
+            }
+
+            .modern-notice-board {
+                width: 100%;
+                border-radius: 0;
+                order: 2;
+                margin: 20px;
+                width: calc(100% - 40px);
+                max-height: 400px;
+            }
+
+            .hero-slider {
+                width: 100%;
+                order: 1;
+                height: 50vh;
+                border-radius: 0;
+            }
+
+            .about-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .about-image {
+                order: -1;
+            }
+
+            .mission-vision-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .countdown-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .achievers-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .contact-content {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sticky-header {
+                position: sticky;
+                top: 0;
+            }
+
+            .header {
+                padding: 8px 15px;
+                flex-wrap: wrap;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                background: var(--black);
+                width: 250px;
+                height: 100vh;
+                flex-direction: column;
+                gap: 0;
+                transition: all 0.5s ease;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+                padding: 70px 0 15px 15px;
+                z-index: 1000;
+                overflow-y: auto;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-item {
+                width: 100%;
+                text-align: left;
+            }
+
+            .nav-link {
+                padding: 10px 15px;
+                width: 100%;
+                justify-content: flex-start;
+                border-radius: 0;
+                font-size: 13px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .login-btn {
+                margin: 8px 15px;
+                padding: 6px 10px;
+                justify-content: center;
+                width: calc(100% - 30px);
+                box-sizing: border-box;
+                font-size: 12px;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .announcement-bar {
+                height: 26px;
+                font-size: 12px;
+            }
+
+            .sticky-buttons {
+                right: 12px;
+                bottom: 12px;
+            }
+
+            .sticky-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 14px;
+            }
+
+            .slider-content {
+                left: 30px;
+                bottom: 80px;
+            }
+
+            .slider-content h2 {
+                font-size: 32px;
+            }
+
+            .slider-content p {
+                font-size: 16px;
+            }
+
+            /* Mobile-specific styles for slider and notice board */
+            .hero-slider {
+                border-radius: 12px !important;
+                margin: 0 15px;
+                width: calc(100% - 30px);
+            }
+
+            .modern-notice-board {
+                border-radius: 12px !important;
+                margin: 15px;
+                width: calc(100% - 30px);
+            }
+
+            /* About Section Mobile */
+            .about-section {
+                padding: 50px 15px;
+            }
+
+            .about-content h2 {
+                font-size: 1.6rem;
+            }
+
+            .secretary-image {
+                max-height: 250px;
+            }
+
+            /* Mission Vision Section Mobile */
+            .mission-vision-section {
+                padding: 50px 15px;
+            }
+
+            /* Countdown Section Mobile - One card per row */
+            .countdown-section {
+                padding: 50px 15px;
+            }
+
+            .countdown-header h2 {
+                font-size: 1.6rem;
+            }
+
+            .countdown-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .countdown-item {
+                padding: 20px 15px;
+                gap: 15px;
+            }
+
+            .countdown-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.4rem;
+            }
+
+            .countdown-number {
+                font-size: 1.8rem;
+            }
+
+            .countdown-label {
+                font-size: 0.85rem;
+            }
+
+            /* Achievers Section Mobile */
+            .achievers-section {
+                padding: 40px 15px;
+            }
+
+            .achievers-header h2 {
+                font-size: 1.6rem;
+            }
+
+            .achievers-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .achiever-image {
+                width: 60px;
+                height: 60px;
+            }
+
+            .achiever-info h3 {
+                font-size: 0.9rem;
+            }
+
+            .achiever-position {
+                font-size: 0.75rem;
+            }
+
+            .achiever-year {
+                font-size: 0.7rem;
+            }
+
+            .achiever-achievement {
+                font-size: 0.65rem;
+                padding: 5px 6px;
+            }
+
+            /* Contact Section Mobile */
+            .contact-section {
+                padding: 40px 15px;
+            }
+
+            .contact-header h2 {
+                font-size: 1.6rem;
+            }
+
+            /* FAQ Section Mobile */
+            .faq-section {
+                padding: 50px 15px;
+            }
+
+            .faq-header h2 {
+                font-size: 1.6rem;
+            }
+
+            .faq-question {
+                padding: 15px 18px;
+            }
+
+            .faq-question h3 {
+                font-size: 0.9rem;
+            }
+
+            .faq-answer {
+                padding: 0 18px;
+            }
+
+            .faq-item.active .faq-answer {
+                padding: 0 18px 15px;
+            }
+
+            .faq-answer p {
+                font-size: 0.85rem;
+                line-height: 1.5;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo-title {
+                font-size: 16px;
+            }
+
+            .menu-toggle {
+                width: 22px;
+                height: 16px;
+            }
+
+            .sticky-buttons {
+                right: 10px;
+                bottom: 10px;
+            }
+
+            .sticky-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 13px;
+            }
+
+            .slider-content {
+                left: 20px;
+                bottom: 60px;
+            }
+
+            .slider-content h2 {
+                font-size: 26px;
+            }
+
+            .slider-content p {
+                font-size: 14px;
+            }
+
+            .slider-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .modern-notice-board {
+                padding: 15px;
+            }
+
+            .notice-item {
+                padding: 12px;
+            }
+
+            .hero-slider {
+                height: 40vh;
+                border-radius: 10px !important;
+            }
+
+            .modern-notice-board {
+                border-radius: 10px !important;
+            }
+
+            .footer-bottom {
+                padding: 15px 0;
+                font-size: 12px;
+            }
+
+            /* About Section Small Mobile */
+            .about-section {
+                padding: 40px 15px;
+            }
+
+            .about-content h2 {
+                font-size: 1.4rem;
+            }
+
+            .about-content p {
+                font-size: 0.9rem;
+            }
+
+
+
+            .countdown-section {
+                padding: 60px 20px;
+                background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                    url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+                position: relative;
+                color: white;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+                margin: 0;
+                border-radius: 0;
+            }
+
+
+            /* Countdown Section Small Mobile */
+            .countdown-grid {
+                grid-template-columns: 1fr;
+                max-width: 100%;
+                gap: 15px;
+            }
+
+            .countdown-item {
+                padding: 18px 15px;
+                gap: 12px;
+            }
+
+            .countdown-number {
+                font-size: 1.6rem;
+            }
+
+            .countdown-header h2 {
+                font-size: 1.4rem;
+            }
+
+            .countdown-header p {
+                font-size: 0.9rem;
+            }
+
+            .countdown-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            /* Achievers Section Small Mobile */
+            .achievers-section {
+                padding: 30px 10px;
+            }
+
+            .achievers-header h2 {
+                font-size: 1.4rem;
+            }
+
+            .achievers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .achiever-card {
+                min-width: 180px;
+            }
+
+            .achiever-image {
+                width: 55px;
+                height: 55px;
+            }
+
+            .achiever-info h3 {
+                font-size: 0.85rem;
+            }
+
+            .achiever-position {
+                font-size: 0.72rem;
+            }
+
+            .achiever-year {
+                font-size: 0.68rem;
+            }
+
+            .achiever-achievement {
+                font-size: 0.62rem;
+                padding: 4px 5px;
+            }
+
+            /* Contact Section Small Mobile */
+            .contact-section {
+                padding: 30px 10px;
+            }
+
+            .contact-header h2 {
+                font-size: 1.4rem;
+            }
+
+            .contact-card {
+                padding: 15px;
+            }
+
+            .contact-form {
+                padding: 20px;
+            }
+
+            /* FAQ Section Small Mobile */
+            .faq-header h2 {
+                font-size: 1.4rem;
+            }
+
+            .faq-header p {
+                font-size: 0.9rem;
+            }
+
+            .faq-question {
+                padding: 14px 16px;
+            }
+
+            .faq-question h3 {
+                font-size: 0.85rem;
+            }
+
+            .faq-answer {
+                padding: 0 16px;
+            }
+
+            .faq-item.active .faq-answer {
+                padding: 0 16px 14px;
+            }
+
+            .faq-answer p {
+                font-size: 0.82rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .announcement-bar {
+                font-size: 11px;
+                height: 24px;
+            }
+
+            .logo-title {
+                font-size: 15px;
+            }
+
+            .hero-slider {
+                height: 35vh;
+                border-radius: 8px !important;
+            }
+
+            .modern-notice-board {
+                border-radius: 8px !important;
+            }
+
+            .footer-bottom {
+                padding: 10px 0;
+                font-size: 11px;
+            }
+
+            .countdown-item {
+                padding: 16px 12px;
+                gap: 10px;
+            }
+
+            .countdown-number {
+                font-size: 1.5rem;
+            }
+
+            .countdown-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+
+            .achiever-card {
+                padding: 8px;
+                min-width: 160px;
+            }
+
+            .achiever-image {
+                width: 50px;
+                height: 50px;
+            }
+
+            .faq-question {
+                padding: 12px 14px;
+            }
+
+            .faq-question h3 {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Popup Modal -->
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup-modal">
+            <div class="popup-close" id="popup-close">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="popup-header">
+                <h2>Welcome to DNS Madrasah</h2>
+                <p>Islamic & Modern Culture Institute</p>
+            </div>
+            <div class="popup-content">
+                <p>We are dedicated to providing quality education that combines Islamic values with modern knowledge to
+                    empower our students for success in this world and the hereafter.</p>
+                <p>Join us in our mission to create a better future through education and community service.</p>
+            </div>
+            <div class="popup-actions">
+                <a href="#" class="popup-btn primary">Learn More</a>
+                <button class="popup-btn secondary" id="popup-close-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky-header">
+        <div class="announcement-bar" id="announcement-bar">
+            <div class="typing-text">
+                <a href="#" class="announcement-link"> Help us provide meals to 500 families this month!</a> |
+                <a href="#" class="announcement-link"> Join our mission to educate underprivileged children</a> |
+                <a href="#" class="announcement-link"> Clean water initiative: Donate to build wells in drought
+                    areas</a> |
+                <a href="#" class="announcement-link"> Medical camp next week: Volunteers needed!</a>
+            </div>
+        </div>
+
+        <div class="header">
+            <div class="logo" id="home-logo">
+                <img src="https://dnsmadrasah.org/wp-content/uploads/2025/07/WhatsApp-Image-2025-07-23-at-9.38.06-AM-1.jpeg"
+                    alt="DNS Madrasah" class="logo-image">
+                <div class="logo-text">
+                    <div class="logo-title">DNS Madrasah</div>
+                    <div class="logo-subtitle">Islamic & Modern Culture Institute</div>
+                </div>
+            </div>
+
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="nav-container">
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-section="home"><i class="fas fa-home"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-section="about"><i class="fas fa-info-circle"></i> About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-section="achievers"><i class="fas fa-trophy"></i> Our Achievers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-section="faq"><i class="fas fa-question-circle"></i> FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-section="contact"><i class="fas fa-envelope"></i> Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dark-mode-toggle" id="dark-mode-toggle">
+                            <i class="fas fa-moon"></i>
+                            <span>Dark Mode</span>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="login-btn" id="login-btn">
+                            <i class="fas fa-user"></i> Member Login / Signup
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Home Section -->
+    <section id="home" class="section active">
+        <!-- Hero Container with Notice Board and Slider -->
+        <div class="hero-container">
+            <!-- Modern Notice Board -->
+            <div class="modern-notice-board">
+                <div class="notice-header">
+                    <a href="#" class="notice-title"><i class="fas fa-bullhorn"></i> Latest Updates</a>
+                    <div class="notice-count">5</div>
+                </div>
+                <ul class="notice-list">
+                    <li class="notice-item">
+                        <h4>Ramadan Food Distribution 2023</h4>
+                        <div class="notice-meta">
+                            <div class="notice-date"><i class="far fa-calendar"></i> Oct 15, 2023</div>
+                            <div class="notice-actions">
+                                <a href="#" class="notice-action">Read More</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="notice-item">
+                        <h4>New Learning Center Opening</h4>
+                        <div class="notice-meta">
+                            <div class="notice-date"><i class="far fa-calendar"></i> Oct 10, 2023</div>
+                            <div class="notice-actions">
+                                <a href="#" class="notice-action">Details</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="notice-item">
+                        <h4>Free Health Camp Success</h4>
+                        <div class="notice-meta">
+                            <div class="notice-date"><i class="far fa-calendar"></i> Oct 5, 2023</div>
+                            <div class="notice-actions">
+                                <a href="#" class="notice-action">View Report</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="notice-item">
+                        <h4>Annual Impact Report 2023</h4>
+                        <div class="notice-meta">
+                            <div class="notice-date"><i class="far fa-calendar"></i> Oct 1, 2023</div>
+                            <div class="notice-actions">
+                                <a href="#" class="notice-action">Download</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="notice-item">
+                        <h4>Charity Gala Night 2023</h4>
+                        <div class="notice-meta">
+                            <div class="notice-date"><i class="far fa-calendar"></i> Sep 28, 2023</div>
+                            <div class="notice-actions">
+                                <a href="#" class="notice-action">Book Now</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Hero Slider -->
+            <div class="hero-slider">
+                <div class="slider-container">
+                    <div class="slider-slide active">
+                        <img src="https://alfarahmission.in/wp-content/uploads/2023/10/Slider-Of-AFM-1.png">
+                    </div>
+                    <div class="slider-slide">
+                        <img src="https://alfarahmission.in/wp-content/uploads/2023/10/Slider-Of-AFM-2.png">
+                    </div>
+                    <div class="slider-slide">
+                        <img
+                            src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80">
+                    </div>
+                    <div class="slider-slide">
+                        <img
+                            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80">
+                    </div>
+
+                    <div class="slider-arrow prev">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                    <div class="slider-arrow next">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+
+                    <div class="slider-nav">
+                        <div class="slider-dot active"></div>
+                        <div class="slider-dot"></div>
+                        <div class="slider-dot"></div>
+                        <div class="slider-dot"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section (includes About Us, Mission & Vision, and Achievements) -->
+    <section id="about" class="section">
+        <!-- About Us Content -->
+        <div class="about-section">
+            <div class="about-container">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+                        alt="Institute General Secretary" class="secretary-image">
+                    <div class="image-overlay">
+                        <h3>Dr. Ahmed Khan</h3>
+                        <p>General Secretary, DNS Madrasah</p>
+                    </div>
+                </div>
+                <div class="about-content">
+                    <h2>About Our Institute</h2>
+                    <p>DNS Madrasah is a premier Islamic and Modern Culture Institute dedicated to providing holistic
+                        education that combines traditional Islamic values with contemporary knowledge.</p>
+                    <p>Founded in 2008, we have been serving the community with excellence in education, character
+                        building, and community service. Our unique approach integrates Islamic teachings with modern
+                        academic disciplines.</p>
+                    <p>We offer a wide range of programs including Islamic studies, modern sciences, vocational
+                        training, and character development courses. Our experienced faculty and state-of-the-art
+                        facilities ensure that our students receive the highest quality education.</p>
+                    <a href="#" class="about-btn">Learn More About Us</a>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Our Achievements Section -->
+        <section class="countdown-section">
+            <div class="countdown-container">
+                <div class="countdown-header">
+                    <h2>Our Achievements</h2>
+                    <p>Making a difference through education and community service</p>
+                </div>
+                <div class="countdown-grid">
+                    <!-- Students Count -->
+                    <div class="countdown-item">
+                        <div class="countdown-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="countdown-content">
+                            <div class="countdown-number" data-target="2500">0</div>
+                            <div class="countdown-label">Students</div>
+                        </div>
+                        <div class="countdown-plus">+</div>
+                    </div>
+
+                    <!-- Teachers Count -->
+                    <div class="countdown-item">
+                        <div class="countdown-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div class="countdown-content">
+                            <div class="countdown-number" data-target="85">0</div>
+                            <div class="countdown-label">Teachers</div>
+                        </div>
+                        <div class="countdown-plus">+</div>
+                    </div>
+
+                    <!-- Establishment Year -->
+                    <div class="countdown-item">
+                        <div class="countdown-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="countdown-content">
+                            <div class="countdown-number" data-target="15">0</div>
+                            <div class="countdown-label">Years</div>
+                        </div>
+                        <div class="countdown-plus">+</div>
+                    </div>
+
+                    <!-- Success Rate -->
+                    <div class="countdown-item">
+                        <div class="countdown-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="countdown-content">
+                            <div class="countdown-number" data-target="98">0</div>
+                            <div class="countdown-label">Success Rate</div>
+                        </div>
+                        <div class="countdown-plus">%</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- Achievers Section -->
+    <section id="achievers" class="section">
+        <div class="achievers-section">
+            <div class="achievers-container">
+                <div class="achievers-header">
+                    <h2>Our Achievers</h2>
+                    <p>Celebrating excellence and outstanding achievements of our students</p>
+                </div>
+                <div class="achievers-grid">
+                    <!-- Achiever 1 -->
+                    <div class="achiever-card">
+                        <div class="achiever-image">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+                                alt="Ahmed Khan">
+                            <div class="achiever-badge">1</div>
+                        </div>
+                        <div class="achiever-info">
+                            <h3>Ahmed Khan</h3>
+                            <div class="achiever-position">
+                                <i class="fas fa-stethoscope"></i>
+                                Medical Student
+                            </div>
+                            <div class="achiever-year">
+                                <i class="fas fa-calendar-alt"></i>
+                                2022 Batch
+                            </div>
+                            <div class="achiever-achievement">
+                                Secured 98.5% in Board Exams, Currently at AIIMS Delhi
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Achiever 2 -->
+                    <div class="achiever-card">
+                        <div class="achiever-image">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+                                alt="Fatima Ahmed">
+                            <div class="achiever-badge">2</div>
+                        </div>
+                        <div class="achiever-info">
+                            <h3>Fatima Ahmed</h3>
+                            <div class="achiever-position">
+                                <i class="fas fa-laptop-code"></i>
+                                CS Engineer
+                            </div>
+                            <div class="achiever-year">
+                                <i class="fas fa-calendar-alt"></i>
+                                2021 Batch
+                            </div>
+                            <div class="achiever-achievement">
+                                97.8% in Boards, IIT Bombay Computer Science
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Achiever 3 -->
+                    <div class="achiever-card">
+                        <div class="achiever-image">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+                                alt="Mohammed Ali">
+                            <div class="achiever-badge">3</div>
+                        </div>
+                        <div class="achiever-info">
+                            <h3>Mohammed Ali</h3>
+                            <div class="achiever-position">
+                                <i class="fas fa-chart-line"></i>
+                                MBA Student
+                            </div>
+                            <div class="achiever-year">
+                                <i class="fas fa-calendar-alt"></i>
+                                2020 Batch
+                            </div>
+                            <div class="achiever-achievement">
+                                96.5% in Commerce, Currently at IIM Ahmedabad
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Achiever 4 -->
+                    <div class="achiever-card">
+                        <div class="achiever-image">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+                                alt="Ayesha Siddiqui">
+                            <div class="achiever-badge">4</div>
+                        </div>
+                        <div class="achiever-info">
+                            <h3>Ayesha Siddiqui</h3>
+                            <div class="achiever-position">
+                                <i class="fas fa-gavel"></i>
+                                Law Student
+                            </div>
+                            <div class="achiever-year">
+                                <i class="fas fa-calendar-alt"></i>
+                                2023 Batch
+                            </div>
+                            <div class="achiever-achievement">
+                                95.8% in Humanities, NLS Bangalore
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Achiever 5 -->
+                    <div class="achiever-card">
+                        <div class="achiever-image">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+                                alt="Rashid Ahmed">
+                            <div class="achiever-badge">5</div>
+                        </div>
+                        <div class="achiever-info">
+                            <h3>Rashid Ahmed</h3>
+                            <div class="achiever-position">
+                                <i class="fas fa-atom"></i>
+                                Research Scientist
+                            </div>
+                            <div class="achiever-year">
+                                <i class="fas fa-calendar-alt"></i>
+                                2019 Batch
+                            </div>
+                            <div class="achiever-achievement">
+                                99.2% in Science, PhD at MIT
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Achiever 6 -->
+                    <div class="achiever-card">
+                        <div class="achiever-image">
+                            <img src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+                                alt="Sara Khan">
+                            <div class="achiever-badge">6</div>
+                        </div>
+                        <div class="achiever-info">
+                            <h3>Sara Khan</h3>
+                            <div class="achiever-position">
+                                <i class="fas fa-paint-brush"></i>
+                                Architecture Student
+                            </div>
+                            <div class="achiever-year">
+                                <i class="fas fa-calendar-alt"></i>
+                                2021 Batch
+                            </div>
+                            <div class="achiever-achievement">
+                                97.3% in Arts, Currently at SPA Delhi
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section">
+        <div class="faq-section">
+            <div class="faq-container">
+                <div class="faq-header">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Quick answers to common questions</p>
+                </div>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What programs do you offer?</h3>
+                            <div class="faq-icon">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We offer Islamic studies, modern sciences, vocational training, and character development
+                                courses that combine traditional values with contemporary knowledge.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How to enroll my child?</h3>
+                            <div class="faq-icon">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Visit our campus, fill online form, or contact admission office. Need birth certificate,
+                                academic records, and ID documents.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Do you offer scholarships?</h3>
+                            <div class="faq-icon">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, scholarships available for deserving students. Committee reviews applications
+                                quarterly to support underprivileged backgrounds.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What are your operating hours?</h3>
+                            <div class="faq-icon">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>8:00 AM to 6:00 PM, Mon-Sat. Evening/weekend classes available. Schedule adjusts during
+                                Ramadan for religious activities.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How can I volunteer or donate?</h3>
+                            <div class="faq-icon">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Volunteer as teacher, mentor, or support staff. Donations accepted online/offline. All
+                                contributions are tax-deductible and used transparently.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="contact-section">
+            <div class="contact-container">
+                <div class="contact-header">
+                    <h2>Contact Us</h2>
+                    <p>Get in touch with us for any inquiries or support</p>
+                </div>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-card">
+                            <h3><i class="fas fa-map-marker-alt"></i> Our Location</h3>
+                            <div class="contact-detail">
+                                <i class="fas fa-building"></i>
+                                <div>
+                                    <h4>Main Campus</h4>
+                                    <p>123 Education Street, Knowledge City</p>
+                                </div>
+                            </div>
+                            <div class="contact-detail">
+                                <i class="fas fa-clock"></i>
+                                <div>
+                                    <h4>Office Hours</h4>
+                                    <p>Mon-Sat: 8:00 AM - 6:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <h3><i class="fas fa-phone-alt"></i> Contact Information</h3>
+                            <div class="contact-detail">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <h4>Phone</h4>
+                                    <a href="tel:+15551234567" class="contact-link">+1 (555) 123-4567</a>
+                                </div>
+                            </div>
+                            <div class="contact-detail">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <h4>Email</h4>
+                                    <a href="mailto:info@dnsmadrasah.edu" class="contact-link">info@dnsmadrasah.edu</a>
+                                </div>
+                            </div>
+                            <div class="contact-detail">
+                                <i class="fab fa-whatsapp"></i>
+                                <div>
+                                    <h4>WhatsApp</h4>
+                                    <a href="https://wa.me/15559876543" class="contact-link">+1 (555) 987-6543</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <input type="text" id="name" name="name" required>
+                                <label for="name" class="floating-label">Full Name</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" required>
+                                <label for="email" class="floating-label">Email Address</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" id="phone" name="phone">
+                                <label for="phone" class="floating-label">Phone Number</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="subject" name="subject" required>
+                                <label for="subject" class="floating-label">Subject</label>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="message" name="message" required></textarea>
+                                <label for="message" class="floating-label">Message</label>
+                            </div>
+                            <button type="submit" class="submit-btn">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sticky buttons -->
+    <div class="sticky-buttons">
+        <a href="#" class="sticky-btn whatsapp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="#" class="sticky-btn phone">
+            <i class="fas fa-phone"></i>
+        </a>
+        <a href="#" class="sticky-btn email">
+            <i class="fas fa-envelope"></i>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; 2025 DNS Madrasah. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize image slider
+            initImageSlider();
+
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navMenu = document.getElementById('nav-menu');
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            const popupOverlay = document.getElementById('popup-overlay');
+            const popupClose = document.getElementById('popup-close');
+            const popupCloseBtn = document.getElementById('popup-close-btn');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+            const formGroups = document.querySelectorAll('.form-group');
+
+            // Mobile menu toggle
+            mobileMenu.addEventListener('click', function () {
+                this.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            // Dark mode toggle
+            darkModeToggle.addEventListener('click', function () {
+                document.body.classList.toggle('dark-mode');
+
+                // Update dark mode toggle text and icon
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                this.querySelector('span').textContent = isDarkMode ? 'Light Mode' : 'Dark Mode';
+                this.querySelector('i').className = isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
+
+                // Save preference to localStorage
+                localStorage.setItem('darkMode', isDarkMode);
+            });
+
+            // Check for saved dark mode preference
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.querySelector('span').textContent = 'Light Mode';
+                darkModeToggle.querySelector('i').className = 'fas fa-sun';
+            }
+
+            // Section navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Close mobile menu if open
+                    mobileMenu.classList.remove('active');
+                    navMenu.classList.remove('active');
+
+                    // Get target section
+                    const targetSection = this.getAttribute('data-section');
+
+                    // Update active nav link
+                    navLinks.forEach(navLink => navLink.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Show target section, hide others
+                    sections.forEach(section => {
+                        if (section.id === targetSection) {
+                            section.classList.add('active');
+                        } else {
+                            section.classList.remove('active');
+                        }
+                    });
+
+                    // Scroll to top
+                    window.scrollTo(0, 0);
+                });
+            });
+
+            // Floating label functionality for contact form
+            formGroups.forEach(group => {
+                const input = group.querySelector('input, textarea');
+
+                // Check if input has value on page load
+                if (input.value) {
+                    group.classList.add('focused');
+                    group.classList.add('empty');
+                }
+
+                input.addEventListener('focus', () => {
+                    group.classList.add('focused');
+                });
+
+                input.addEventListener('blur', () => {
+                    if (!input.value) {
+                        group.classList.remove('focused');
+                    }
+                    group.classList.toggle('empty', !input.value);
+                });
+
+                input.addEventListener('input', () => {
+                    group.classList.toggle('empty', !input.value);
+                });
+            });
+
+            // Popup functionality
+            function showPopup() {
+                // Check if popup has been shown before
+                if (!localStorage.getItem('popupShown')) {
+                    setTimeout(() => {
+                        popupOverlay.classList.add('active');
+                        localStorage.setItem('popupShown', 'true');
+                    }, 2000);
+                }
+            }
+
+            function closePopup() {
+                popupOverlay.classList.remove('active');
+            }
+
+            popupClose.addEventListener('click', closePopup);
+            popupCloseBtn.addEventListener('click', closePopup);
+
+            // Show popup on page load
+            showPopup();
+
+            function initImageSlider() {
+                const slides = document.querySelectorAll('.slider-slide');
+                const dots = document.querySelectorAll('.slider-dot');
+                const prevBtn = document.querySelector('.slider-arrow.prev');
+                const nextBtn = document.querySelector('.slider-arrow.next');
+                let currentSlide = 0;
+                let slideInterval;
+
+                function showSlide(index) {
+                    // Hide all slides
+                    slides.forEach(slide => slide.classList.remove('active'));
+                    dots.forEach(dot => dot.classList.remove('active'));
+
+                    // Show current slide
+                    slides[index].classList.add('active');
+                    dots[index].classList.add('active');
+
+                    currentSlide = index;
+                }
+
+                function nextSlide() {
+                    let nextIndex = (currentSlide + 1) % slides.length;
+                    showSlide(nextIndex);
+                }
+
+                function prevSlide() {
+                    let prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+                    showSlide(prevIndex);
+                }
+
+                // Event listeners for navigation
+                nextBtn.addEventListener('click', nextSlide);
+                prevBtn.addEventListener('click', prevSlide);
+
+                // Event listeners for dots
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        showSlide(index);
+                        resetInterval();
+                    });
+                });
+
+                // Auto slide
+                function startInterval() {
+                    slideInterval = setInterval(nextSlide, 5000);
+                }
+
+                function resetInterval() {
+                    clearInterval(slideInterval);
+                    startInterval();
+                }
+
+                startInterval();
+
+                // Pause on hover
+                const sliderContainer = document.querySelector('.slider-container');
+                sliderContainer.addEventListener('mouseenter', () => {
+                    clearInterval(slideInterval);
+                });
+
+                sliderContainer.addEventListener('mouseleave', () => {
+                    startInterval();
+                });
+            }
+
+            // Countdown Animation
+            const countdownItems = document.querySelectorAll('.countdown-item');
+
+            // Function to check if element is in viewport
+            function isInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top >= 0 &&
+                    rect.left >= 0 &&
+                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.right <= (window.innerWidth || document.documentElement.clientHeight)
+                );
+            }
+
+            // Function to animate numbers
+            function animateNumbers() {
+                countdownItems.forEach(item => {
+                    if (isInViewport(item)) {
+                        const numberElement = item.querySelector('.countdown-number');
+                        const target = parseInt(numberElement.getAttribute('data-target'));
+                        const duration = 2000; // 2 seconds
+                        const step = target / (duration / 16); // 60fps
+                        let current = 0;
+
+                        const timer = setInterval(() => {
+                            current += step;
+                            if (current >= target) {
+                                current = target;
+                                clearInterval(timer);
+                            }
+                            numberElement.textContent = Math.floor(current).toLocaleString();
+                        }, 16);
+
+                        numberElement.classList.add('animated');
+
+                        // Remove event listener after animation
+                        window.removeEventListener('scroll', animateNumbers);
+                    }
+                });
+            }
+
+            // Start animation when section comes into view
+            window.addEventListener('scroll', animateNumbers);
+
+            // Initial check in case section is already in view
+            animateNumbers();
+
+            // FAQ Accordion
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+
+                question.addEventListener('click', () => {
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Contact Form Submission
+            const contactForm = document.getElementById('contactForm');
+
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Get form data
+                const formData = new FormData(this);
+                const name = formData.get('name');
+                const email = formData.get('email');
+                const subject = formData.get('subject');
+
+                // In a real application, you would send this data to a server
+                // For now, we'll just show an alert
+                alert(`Thank you ${name}! Your message "${subject}" has been received. We'll contact you at ${email} soon.`);
+
+                // Reset form
+                this.reset();
+
+                // Reset floating labels
+                formGroups.forEach(group => {
+                    group.classList.remove('focused');
+                    group.classList.add('empty');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

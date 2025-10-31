@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('admin_sidebar')%>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fees Management | DNS Madrasah</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <style>
+            :root {
+                --pos-primary: #54A651;
+                --pos-dark: #2c3e50;
+                --pos-light: #f8f9fa;
+            }
+
+            body {
+                background-color: var(--pos-light);
+                font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+                color: var(--pos-dark);
+                margin: 0;
+                padding: 0;
+                font-size: 0.9rem;
+            }
+
+            .main-content {
+                margin-left: 280px;
+                padding: 15px;
+                margin-top: 80px;
+                margin-bottom: 30px;
+            }
+
+            .pos-card {
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                padding: 20px 30px;
+                width: 100%;
+                max-width: 1075px;
+                margin: 0 auto;
+            }
+
+            h5 {
+                color: white;
+                background: rgb(12, 138, 65);
+                padding: 12px 18px;
+                border-radius: 10px;
+                width: 100%;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+                font-size: 1.1rem;
+            }
+
+            .pos-btn-primary {
+                background-color: rgb(12, 138, 65);
+                border: none;
+                padding: 8px 16px;
+                border-radius: 6px;
+                color: white;
+                font-weight: 500;
+                transition: all 0.2s;
+                font-size: 0.9rem;
+            }
+
+            .pos-btn-primary:hover {
+                background-color: white;
+                color: var(--pos-primary);
+                transform: translateY(-1px);
+                box-shadow: 0 4px 8px rgba(0, 105, 92, 0.25);
+            }
+
+            .btn-outline-secondary {
+                border-color: #6c757d;
+                color: #6c757d;
+            }
+
+            .btn-outline-secondary:hover {
+                background-color: #6c757d;
+                color: white;
+            }
+
+            .form-section {
+                margin-bottom: 25px;
+                padding-bottom: 15px;
+                border-bottom: 1px solid #eee;
+            }
+
+            .form-section h6 {
+                color: var(--pos-primary);
+                border-bottom: 1px solid #eee;
+                padding-bottom: 8px;
+                margin-bottom: 15px;
+                font-weight: 600;
+            }
+
+            .form-label {
+                font-weight: 600;
+                color: #555;
+                margin-bottom: 5px;
+                font-size: 0.9rem;
+            }
+
+            .form-control,
+            .form-select {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+                border-radius: 4px;
+                border: 1px solid #ced4da;
+            }
+
+            .form-control:focus,
+            .form-select:focus {
+                border-color: var(--pos-primary);
+                box-shadow: 0 0 0 0.2rem rgba(84, 166, 81, 0.25);
+            }
+
+            .required-field::after {
+                content: " *";
+                color: #dc3545;
+            }
+
+            .grand-total-field {
+                background-color: #f8f9fa;
+                border: 2px solid var(--pos-primary);
+                font-weight: 700;
+                font-size: 1.1rem;
+                color: var(--pos-primary);
+            }
+
+            .form-note {
+                font-size: 0.8rem;
+                color: #6c757d;
+                font-style: italic;
+                margin-top: 5px;
+            }
+
+            .input-group-text {
+                background-color: #e9ecef;
+                color: #495057;
+                font-weight: 500;
+            }
+
+            /* Mobile adjustments */
+            @media (max-width: 768px) {
+                .main-content {
+                    margin-left: 0;
+                    padding: 10px;
+                }
+
+                .pos-card {
+                    padding: 15px;
+                    margin-left: 0;
+                }
+
+                .pos-card h5 {
+                    font-size: 1rem;
+                }
+
+                .pos-card h6 {
+                    font-size: 0.75rem;
+                }
+
+                .form-label {
+                    font-size: 0.85rem;
+                }
+
+                .form-control,
+                .form-select {
+                    font-size: 0.85rem;
+                }
+
+                .pos-btn-primary,
+                .btn {
+                    font-size: 0.85rem;
+                    padding: 6px 12px;
+                }
+            }
+
+            @media (max-width: 576px) {
+                .pos-card {
+                    padding: 15px;
+                    width: 100%;
+                    margin: auto;
+                    margin-bottom: 30px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <% if ( messages.success) { %>
+            <script>
+                Swal.fire({
+                    toast: true,
+                    position: "top-end",
+                    icon: "success",
+                    title: "<%= messages.success %>",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    background: "#ffffff",
+                    iconColor: "#00b894",
+                    color: "#333",
+                    customClass: {
+                        popup: 'custom-swal-toast'
+                    },
+                    didOpen: (toast) => {
+                        toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                        toast.style.borderRadius = '8px';
+                        toast.style.padding = '0.75rem 1.25rem';
+                    }
+                });
+            </script>
+            <% } %>
+
+                <% if ( messages.error) { %>
+                    <script>
+                        Swal.fire({
+                            toast: true,
+                            position: "top-end",
+                            icon: "error",
+                            title: "<%= messages.error %>",
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            background: "#ffffff",
+                            iconColor: "red",
+                            color: "#333",
+                            customClass: {
+                                popup: 'custom-swal-toast'
+                            },
+                            didOpen: (toast) => {
+                                toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                                toast.style.borderRadius = '8px';
+                                toast.style.padding = '0.75rem 1.25rem';
+                            }
+                        });
+                    </script>
+                    <% } %>
+
+                        <div class="main-content">
+                            <div class="pos-card">
+                                <h5 class="mb-4 fw-bold">
+                                    <i class="fas fa-money-bill-wave me-2"></i> Fees Management
+                                </h5>
+
+                                <form action="/dnsmadrasah.org/dns-admin/fees/add-fees" method="post" id="feesForm">
+                                    <div class="form-section">
+                                        <h6><i class="fas fa-info-circle me-2"></i> Basic Information</h6>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="class" class="form-label required-field">Class</label>
+                                                    <select class="form-select" id="class" name="className" required>
+                                                        <option value="">Select Class</option>
+                                                        <option value="Class IV">Class IV</option>
+                                                        <option value="Class V">Class V</option>
+                                                        <option value="Class VI">Class VI</option>
+                                                        <option value="Class VII">Class VII</option>
+                                                        <option value="Class VIII">Class VIII</option>
+                                                        <option value="Class IX">Class IX</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="academic_year"
+                                                        class="form-label required-field">Academic Year</label>
+                                                    <select class="form-select" id="academic_year" name="academic_year"
+                                                        required>
+                                                        <option value="">Select Academic Year</option>
+                                                        <option value="2026">2026</option>
+                                                        <option value="2027">2027</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-section">
+                                        <h6><i class="fas fa-money-bill me-2"></i> Fees Information</h6>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="admission_fees"
+                                                        class="form-label required-field">Admission Fees</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">₹</span>
+                                                        <input type="number" class="form-control" id="admission_fees"
+                                                            name="admission_fees" min="0" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="development_fees"
+                                                        class="form-label required-field">Development Fees</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">₹</span>
+                                                        <input type="number" class="form-control" id="development_fees"
+                                                            name="development_fees" min="0" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="milda_fees" class="form-label required-field">Milad
+                                                        Fees</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">₹</span>
+                                                        <input type="number" class="form-control" id="milda_fees"
+                                                            name="milad_fees" min="0" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="id_card_fees" class="form-label required-field">ID Card
+                                                        Fees</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">₹</span>
+                                                        <input type="number" class="form-control" id="id_card_fees"
+                                                            name="id_card_fees" min="0" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="anjuman_fees" class="form-label required-field">Anjuman
+                                                        Fees</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">₹</span>
+                                                        <input type="number" class="form-control" id="anjuman_fees"
+                                                            name="anjuman_fees" min="0" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="game_fees" class="form-label required-field">Game
+                                                        Fees</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">₹</span>
+                                                        <input type="number" class="form-control" id="game_fees"
+                                                            name="game_fees" min="0" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="grand_total" class="form-label required-field">Grand
+                                                        Total</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">₹</span>
+                                                        <input type="number" class="form-control grand-total-field"
+                                                            id="grand_total" name="grand_total" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-4 pt-3 border-top">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <button type="submit" class="btn pos-btn-primary me-2">
+                                                    <i class="fas fa-check me-2"></i> Save Fees
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <script
+                            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const feeInputs = [
+                                    'admission_fees',
+                                    'development_fees',
+                                    'milda_fees',
+                                    'id_card_fees',
+                                    'anjuman_fees',
+                                    'game_fees'
+                                ];
+
+                                feeInputs.forEach(feeId => {
+                                    const input = document.getElementById(feeId);
+                                    if (input) {
+                                        input.addEventListener('input', updateGrandTotal);
+                                    }
+                                });
+
+                                updateGrandTotal();
+
+                                const feesForm = document.getElementById('feesForm');
+                                if (feesForm) {
+                                    feesForm.addEventListener('submit', function (e) {
+                                        let isValid = true;
+                                        feeInputs.forEach(feeId => {
+                                            const input = document.getElementById(feeId);
+                                            if (input && (isNaN(input.value) || parseFloat(input.value) < 0)) {
+                                                isValid = false;
+                                                input.classList.add('is-invalid');
+                                            } else {
+                                                input.classList.remove('is-invalid');
+                                            }
+                                        });
+
+                                        if (!isValid) {
+                                            e.preventDefault();
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Invalid Input',
+                                                text: 'Please enter valid positive numbers for all fees',
+                                                confirmButtonColor: 'var(--pos-primary)'
+                                            });
+                                            return;
+                                        }
+
+                                        const submitBtn = this.querySelector('button[type="submit"]');
+                                        const originalText = submitBtn.innerHTML;
+                                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Processing...';
+                                        submitBtn.disabled = true;
+                                    });
+                                }
+
+                            });
+
+                            function updateGrandTotal() {
+                                let total = 0;
+
+                                const feeInputs = [
+                                    'admission_fees',
+                                    'development_fees',
+                                    'milda_fees',
+                                    'id_card_fees',
+                                    'anjuman_fees',
+                                    'game_fees'
+                                ];
+
+                                feeInputs.forEach(feeId => {
+                                    const input = document.getElementById(feeId);
+                                    if (input) {
+                                        const value = parseFloat(input.value) || 0;
+                                        total += value;
+                                    }
+                                });
+
+                                const grandTotalInput = document.getElementById('grand_total');
+                                if (grandTotalInput) {
+                                    grandTotalInput.value = total;
+                                }
+                            }
+                        </script>
+    </body>
+
+</html>

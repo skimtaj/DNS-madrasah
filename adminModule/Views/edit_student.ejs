@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('admin_sidebar')%>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>New Student Admission | DNS Madrasah</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <style>
+            :root {
+                --pos-primary: #54A651;
+                --pos-dark: #2c3e50;
+                --pos-light: #f8f9fa;
+            }
+
+            body {
+                background-color: var(--pos-light);
+                font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+                color: var(--pos-dark);
+                margin: 0;
+                padding: 0;
+                font-size: 0.9rem;
+            }
+
+            .main-content {
+                margin-left: 280px;
+                padding: 15px;
+                margin-top: 80px;
+                margin-bottom: 30px;
+            }
+
+            .pos-card {
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                padding: 20px 30px;
+                width: 100%;
+                max-width: 1075px;
+                margin: 0 auto;
+            }
+
+            h5 {
+                color: white;
+                background: rgb(12, 138, 65);
+                padding: 12px 18px;
+                border-radius: 10px;
+                width: 100%;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+                font-size: 1.1rem;
+            }
+
+            .pos-btn-primary {
+                background-color: rgb(12, 138, 65);
+                border: none;
+                padding: 8px 16px;
+                border-radius: 6px;
+                color: white;
+                font-weight: 500;
+                transition: all 0.2s;
+                font-size: 0.9rem;
+            }
+
+            .pos-btn-primary:hover {
+                background-color: white;
+                color: var(--pos-primary);
+                transform: translateY(-1px);
+                box-shadow: 0 4px 8px rgba(0, 105, 92, 0.25);
+            }
+
+            .btn-outline-secondary {
+                border-color: #6c757d;
+                color: #6c757d;
+            }
+
+            .btn-outline-secondary:hover {
+                background-color: #6c757d;
+                color: white;
+            }
+
+            .form-section {
+                margin-bottom: 25px;
+                padding-bottom: 15px;
+                border-bottom: 1px solid #eee;
+            }
+
+            .form-section h6 {
+                color: var(--pos-primary);
+                border-bottom: 1px solid #eee;
+                padding-bottom: 8px;
+                margin-bottom: 15px;
+                font-weight: 600;
+            }
+
+            .form-label {
+                font-weight: 600;
+                color: #555;
+                margin-bottom: 5px;
+                font-size: 0.9rem;
+            }
+
+            .form-control,
+            .form-select {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+                border-radius: 4px;
+                border: 1px solid #ced4da;
+            }
+
+            .form-control:focus,
+            .form-select:focus {
+                border-color: var(--pos-primary);
+                box-shadow: 0 0 0 0.2rem rgba(84, 166, 81, 0.25);
+            }
+
+            .required-field::after {
+                content: " *";
+                color: #dc3545;
+            }
+
+            .photo-upload-area {
+                border: 2px dashed #dee2e6;
+                border-radius: 8px;
+                padding: 20px;
+                text-align: center;
+                background-color: #f8f9fa;
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+
+            .photo-upload-area:hover {
+                border-color: var(--pos-primary);
+                background-color: #f0f9f0;
+            }
+
+            .photo-preview {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 4px solid var(--pos-primary);
+                margin: 0 auto 15px;
+                display: none;
+            }
+
+            .file-upload-label {
+                cursor: pointer;
+                display: block;
+            }
+
+            .file-upload-input {
+                display: none;
+            }
+
+            .document-upload {
+                border: 1px solid #dee2e6;
+                border-radius: 6px;
+                padding: 10px;
+                margin-bottom: 10px;
+                background-color: #f8f9fa;
+            }
+
+            .document-name {
+                font-weight: 600;
+                color: #495057;
+                margin-bottom: 5px;
+            }
+
+            .document-required {
+                font-size: 0.8rem;
+                color: #6c757d;
+            }
+
+            .file-input-wrapper {
+                position: relative;
+                overflow: hidden;
+                display: inline-block;
+            }
+
+            .file-input-wrapper input[type=file] {
+                position: absolute;
+                left: 0;
+                top: 0;
+                opacity: 0;
+                cursor: pointer;
+                width: 100%;
+                height: 100%;
+            }
+
+            .file-name {
+                font-size: 0.8rem;
+                color: #6c757d;
+                margin-top: 5px;
+                min-height: 18px;
+            }
+
+            .file-name.has-file {
+                color: #28a745;
+                font-weight: 500;
+            }
+
+            .form-note {
+                font-size: 0.8rem;
+                color: #6c757d;
+                font-style: italic;
+                margin-top: 5px;
+            }
+
+            .step-indicator {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 30px;
+                position: relative;
+            }
+
+            .step-indicator::before {
+                content: '';
+                position: absolute;
+                top: 15px;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background-color: #dee2e6;
+                z-index: 1;
+            }
+
+            .step {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+                z-index: 2;
+            }
+
+            .step-number {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background-color: #dee2e6;
+                color: #6c757d;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 600;
+                margin-bottom: 5px;
+            }
+
+            .step.active .step-number {
+                background-color: var(--pos-primary);
+                color: white;
+            }
+
+            .step-label {
+                font-size: 0.8rem;
+                color: #6c757d;
+                font-weight: 500;
+            }
+
+            .step.active .step-label {
+                color: var(--pos-primary);
+            }
+
+            /* Mobile adjustments */
+            @media (max-width: 768px) {
+                .main-content {
+                    margin-left: 0;
+                    padding: 10px;
+                }
+
+                .pos-card {
+                    padding: 15px;
+                    margin-left: 0;
+                }
+
+                .pos-card h5 {
+                    font-size: 1rem;
+                }
+
+                .pos-card h6 {
+                    font-size: 0.75rem;
+                }
+
+                .step-indicator {
+                    flex-wrap: wrap;
+                    gap: 10px;
+                }
+
+                .step {
+                    flex: 1;
+                    min-width: 80px;
+                }
+
+                .step-label {
+                    font-size: 0.7rem;
+                    text-align: center;
+                }
+
+                .form-label {
+                    font-size: 0.85rem;
+                }
+
+                .form-control,
+                .form-select {
+                    font-size: 0.85rem;
+                }
+
+                .pos-btn-primary,
+                .btn {
+                    font-size: 0.85rem;
+                    padding: 6px 12px;
+                }
+            }
+
+            @media (max-width: 576px) {
+                .pos-card {
+                    padding: 15px;
+                    width: 100%;
+                    margin: auto;
+                    margin-bottom: 30px;
+                }
+
+                .photo-upload-area {
+                    padding: 15px;
+                }
+
+                .photo-preview {
+                    width: 120px;
+                    height: 120px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <% if ( messages.success) { %>
+            <script>
+                Swal.fire({
+                    toast: true,
+                    position: "top-end",
+                    icon: "success",
+                    title: "<%= messages.success %>",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    background: "#ffffff",
+                    iconColor: "#00b894",
+                    color: "#333",
+                    customClass: {
+                        popup: 'custom-swal-toast'
+                    },
+                    didOpen: (toast) => {
+                        toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                        toast.style.borderRadius = '8px';
+                        toast.style.padding = '0.75rem 1.25rem';
+                    }
+                });
+            </script>
+            <% } %>
+
+                <% if ( messages.error) { %>
+                    <script>
+                        Swal.fire({
+                            toast: true,
+                            position: "top-end",
+                            icon: "error",
+                            title: "<%= messages.error %>",
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            background: "#ffffff",
+                            iconColor: "red",
+                            color: "#333",
+                            customClass: {
+                                popup: 'custom-swal-toast'
+                            },
+                            didOpen: (toast) => {
+                                toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                                toast.style.borderRadius = '8px';
+                                toast.style.padding = '0.75rem 1.25rem';
+                            }
+                        });
+                    </script>
+                    <% } %>
+
+                        <div class="main-content">
+                            <div class="pos-card">
+                                <h5 class="mb-4 fw-bold">
+                                     <i class="fas fa-sync-alt me-1"></i> Update Student Admission
+                                </h5>
+
+                                <div class="step-indicator">
+                                    <div class="step active">
+                                        <div class="step-number">1</div>
+                                        <div class="step-label">Personal Info</div>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">2</div>
+                                        <div class="step-label">Address</div>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">3</div>
+                                        <div class="step-label">Guardian</div>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">4</div>
+                                        <div class="step-label">Additional Info</div>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step-number">5</div>
+                                        <div class="step-label">Payment</div>
+                                    </div>
+                                </div>
+
+                                <form action="/dnsmadrasah.org/dns-admin/edit-student/<%=studentSourse._id%>"
+                                    method="post" enctype="multipart/form-data" id="admissionForm">
+                                    <div class="form-section">
+                                        <h6><i class="fas fa-user me-2"></i> Personal Information</h6>
+
+                                        <div class="row mb-4">
+                                            <div class="col-md-4">
+                                                <div class="photo-upload-area" id="photoUploadArea">
+
+
+                                                    <img id="photoPreview" class="photo-preview"
+                                                        alt="Student Photo Preview">
+
+                                                    <div id="uploadPlaceholder">
+                                                        <i class="fas fa-camera fa-2x text-muted mb-2"></i>
+                                                        <p class="mb-1">Upload Student Photo</p>
+                                                        <small class="text-muted">JPG, PNG (Max 2MB)</small>
+                                                    </div>
+                                                    <input type="file" id="student_photo" name="student_image"
+                                                        class="file-upload-input" accept="image/*">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="mb-3">
+                                                            <label for="student_name"
+                                                                class="form-label required-field">Full Name</label>
+                                                            <input type="text" class="form-control" id="student_name"
+                                                                name="student_name" required
+                                                                value="<%=studentSourse.student_name%>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="applied_class"
+                                                                class="form-label required-field">Applied Class</label>
+                                                            <select class="form-select" id="applied_class"
+                                                                name="applied_class" required>
+                                                                <option value="">Select Class</option>
+                                                                <option value="Class IV"
+                                                                    <%=studentSourse.applied_class==='Class IV'
+                                                                    ? 'selected' : '' %> >Class IV</option>
+                                                                <option value="Class V"
+                                                                    <%=studentSourse.applied_class==='Class V'
+                                                                    ? 'selected' : "" %> >Class V</option>
+                                                                <option value="Class VI"
+                                                                    <%=studentSourse.applied_class==='Class VI'
+                                                                    ? 'selected' : "" %> >Class VI</option>
+                                                                <option value="Class VII"
+                                                                    <%=studentSourse.applied_class==='Class VII'
+                                                                    ? 'selected' : "" %> >Class VII</option>
+                                                                <option value="Class VIII"
+                                                                    <%=studentSourse.applied_class==='Class VIII'
+                                                                    ? 'selected' : "" %>>Class VIII</option>
+                                                                <option value="Class IX"
+                                                                    <%=studentSourse.applied_class==='Class IX'
+                                                                    ? 'selected' : "" %> >Class IX</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="admission_method"
+                                                                class="form-label required-field">Admission
+                                                                Method</label>
+                                                            <select class="form-select" id="admission_method"
+                                                                name="admission_mode" required>
+                                                                <option value="">Select Method</option>
+                                                                <option value="Online"
+                                                                    <%=studentSourse.admission_mode==='Online'
+                                                                    ? 'selected' : '' %> >Online</option>
+                                                                <option value="Offline"
+                                                                    <%=studentSourse.admission_mode==='Offline'
+                                                                    ? 'selected' : '' %> >Offline</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="nationality"
+                                                                class="form-label required-field">Nationality</label>
+                                                            <input type="text" class="form-control" id="nationality"
+                                                                name="nationality" value="Indian" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="bangla_shiksha_portal"
+                                                                class="form-label required-field">Bangla Shiksha
+                                                                Portal ID</label>
+                                                            <input type="text" class="form-control"
+                                                                id="bangla_shiksha_portal" name="Bangla_Shiksha_Portal"
+                                                                required
+                                                                value="<%=studentSourse.Bangla_Shiksha_Portal%>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="dob" class="form-label required-field">Date of
+                                                        Birth</label>
+                                                    <input type="date" class="form-control" id="dob" name="dob" required
+                                                        value="<%=studentSourse.dob%>">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="age" class="form-label required-field">Age</label>
+                                                    <input type="number" class="form-control" id="age" name="age"
+                                                        min="5" max="18" required value="<%=studentSourse.age%>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-section">
+                                        <h6><i class="fas fa-home me-2"></i> Address Information</h6>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="village"
+                                                        class="form-label required-field">Village</label>
+                                                    <input type="text" class="form-control" id="village" name="Village"
+                                                        required value="<%=studentSourse.Village%>">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="post_office" class="form-label required-field">Post
+                                                        Office</label>
+                                                    <input type="text" class="form-control" id="post_office" name="post"
+                                                        required value="<%=studentSourse.post%>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="police_station" class="form-label required-field">Police
+                                                        Station</label>
+                                                    <input type="text" class="form-control" id="police_station"
+                                                        name="ps" required value="<%=studentSourse.ps%>">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="district"
+                                                        class="form-label required-field">District</label>
+                                                    <input type="text" class="form-control" id="district"
+                                                        name="District" required value="<%=studentSourse.District%>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="mb-3">
+                                                    <label for="pin_code" class="form-label required-field">PIN
+                                                        Code</label>
+                                                    <input type="text" class="form-control" id="pin_code"
+                                                        name="PIN_Code" pattern="[0-9]{6}" maxlength="6" required
+                                                        value="<%=studentSourse.PIN_Code%>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-section">
+                                        <h6><i class="fas fa-users me-2"></i> Guardian Information</h6>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="guardian_name"
+                                                        class="form-label required-field">Guardian Name</label>
+                                                    <input type="text" class="form-control" id="guardian_name"
+                                                        name="Guardian_Name" required
+                                                        value="<%=studentSourse.Guardian_Name%>">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="relation_with_student"
+                                                        class="form-label required-field">Relation with Student</label>
+                                                    <select class="form-select" id="relation_with_student"
+                                                        name="Relation_with_Student" required>
+                                                        <option value="">Select Relation</option>
+                                                        <option value="Father"
+                                                            <%=studentSourse.Relation_with_Student==='Father'
+                                                            ?'selected' : '' %>>Father</option>
+                                                        <option value="Mother"
+                                                            <%=studentSourse.Relation_with_Student==='Mother'
+                                                            ?'selected' : '' %> >Mother</option>
+                                                        <option value="Guardian"
+                                                            <%=studentSourse.Relation_with_Student==='Guardian'
+                                                            ?'selected' : '' %> >Guardian</option>
+                                                        <option value="Other"
+                                                            <%=studentSourse.Relation_with_Student==='Other' ?'selected'
+                                                            : '' %> >Other</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="mb-3">
+                                                    <label for="relation_with_student"
+                                                        class="form-label required-field">Occupation</label>
+                                                    <select class="form-select" id="relation_with_student"
+                                                        name="occupation" required>
+                                                        <option value="" selected>Select Occupation / পেশা নির্বাচন করুন
+                                                        </option>
+                                                        <option value="Teacher" <%=studentSourse.occupation==='Teacher'
+                                                            ? 'select' : '' %> >Teacher </option>
+                                                        <option value="Farmer" <%=studentSourse.occupation==='Farmer'
+                                                            ? 'selected' : '' %> >Farmer </option>
+                                                        <option value="Businessman"
+                                                            <%=studentSourse.occupation==='Businessman' ? 'selected'
+                                                            : '' %> >Businessman </option>
+                                                        <option value="Engineer"
+                                                            <%=studentSourse.occupation==='Engineer' ? 'selected' : ''
+                                                            %>
+                                                            >Engineer </option>
+                                                        <option value="Doctor" <%=studentSourse.occupation==='Doctor'
+                                                            ? 'selected' : '' %> >Doctor </option>
+                                                        <option value="Service Holder"
+                                                            <%=studentSourse.occupation==='Service Holder' ? 'selected'
+                                                            : '' %> >Service Holder </option>
+                                                        <option value="Housewife"
+                                                            <%=studentSourse.occupation==='Housewife ' ? 'selected' : ''
+                                                            %> >Housewife </option>
+                                                        <option value="Other" <%=studentSourse.occupation==='Other '
+                                                            ? 'selected' : '' %> >Other </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="mobile_no" class="form-label required-field">Mobile
+                                                        Number</label>
+                                                    <input type="tel" class="form-control" id="mobile_no"
+                                                        name="Mobile_No" pattern="[0-9]{10}" maxlength="10" required
+                                                        value="<%=studentSourse.Mobile_No%>">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="whatsapp_no" class="form-label required-field">WhatsApp
+                                                        Number</label>
+                                                    <input type="tel" class="form-control" id="whatsapp_no"
+                                                        name="WhatsApp_No" pattern="[0-9]{10}" maxlength="10" required
+                                                        value="<%=studentSourse.WhatsApp_No%>">
+                                                    <div class="form-note">If different from mobile number</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-section">
+                                        <h6><i class="fas fa-info-circle me-2"></i> Student's Additional Information
+                                        </h6>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="student_aadhaar"
+                                                        class="form-label required-field">Aadhaar Number</label>
+                                                    <input type="text" class="form-control" id="student_aadhaar"
+                                                        name="Aadhaar_Number" pattern="[0-9]{12}" maxlength="12"
+                                                        required value="<%=studentSourse.Aadhaar_Number%>">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="bank_account_no" class="form-label required-field">Bank
+                                                        Account No.</label>
+                                                    <input type="text" class="form-control" id="bank_account_no"
+                                                        name="bank_ac_no" required
+                                                        value="<%=studentSourse.bank_ac_no%>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="mb-3">
+                                                    <label for="ifsc_code" class="form-label required-field">IFSC
+                                                        Code</label>
+                                                    <input type="text" class="form-control" id="ifsc_code"
+                                                        name="ifsc_code" required value="<%=studentSourse.ifsc_code%>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-section">
+                                        <h6><i class="fas fa-money-bill-wave me-2"></i> Fee Information</h6>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="mb-3">
+                                                    <label for="registration_fee"
+                                                        class="form-label required-field">Registration Fee</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">₹</span>
+                                                        <input type="number" class="form-control" id="registration_fee"
+                                                            name="regi_fees" min="0" value="200" required readonly>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-4 pt-3 border-top">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <button type="submit" class="btn pos-btn-primary me-2">
+                                                    <i class="fas fa-check me-2"></i> Update 
+                                                </button>
+
+                                            </div>
+                                            <a href="/dnsmadrasah.org/dns-admin/student-list"
+                                                class="btn btn-outline-secondary">
+                                                <i class="fa-solid fa-building-columns me-2"></i>
+                                                Back to List
+                                            </a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <script
+                            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const photoUploadArea = document.getElementById('photoUploadArea');
+                                const studentPhotoInput = document.getElementById('student_photo');
+
+                                if (photoUploadArea && studentPhotoInput) {
+                                    photoUploadArea.addEventListener('click', function () {
+                                        studentPhotoInput.click();
+                                    });
+
+                                    studentPhotoInput.addEventListener('change', function (e) {
+                                        const file = e.target.files[0];
+                                        if (file) {
+                                            const reader = new FileReader();
+                                            reader.onload = function (e) {
+                                                const preview = document.getElementById('photoPreview');
+                                                preview.src = e.target.result;
+                                                preview.style.display = 'block';
+                                                document.getElementById('uploadPlaceholder').style.display = 'none';
+                                            }
+                                            reader.readAsDataURL(file);
+                                        }
+                                    });
+                                }
+
+                                const dobInput = document.getElementById('dob');
+                                if (dobInput) {
+                                    dobInput.addEventListener('change', function () {
+                                        const dob = new Date(this.value);
+                                        const today = new Date();
+                                        let age = today.getFullYear() - dob.getFullYear();
+                                        const monthDiff = today.getMonth() - dob.getMonth();
+
+                                        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+                                            age--;
+                                        }
+
+                                        document.getElementById('age').value = age;
+                                    });
+                                }
+
+                                const fileUploadButtons = document.querySelectorAll('.file-upload-btn');
+
+                                fileUploadButtons.forEach(button => {
+                                    button.addEventListener('click', function (e) {
+                                        e.preventDefault();
+                                        const fileInput = this.parentElement.querySelector('input[type="file"]');
+                                        if (fileInput) {
+                                            fileInput.click();
+                                        }
+                                    });
+                                });
+
+                                const fileInputs = document.querySelectorAll('input[type="file"]');
+                                fileInputs.forEach(input => {
+                                    input.addEventListener('change', function () {
+                                        const fileName = this.files[0] ? this.files[0].name : 'No file chosen';
+                                        const fileDisplay = document.getElementById(this.id + 'FileName');
+
+                                        if (fileDisplay) {
+                                            if (this.files[0]) {
+                                                fileDisplay.textContent = fileName;
+                                                fileDisplay.classList.add('has-file');
+                                                fileDisplay.innerHTML = '<i class="fas fa-check-circle me-1 text-success"></i>' + fileName;
+                                            } else {
+                                                fileDisplay.textContent = 'No file chosen';
+                                                fileDisplay.classList.remove('has-file');
+                                                fileDisplay.innerHTML = 'No file chosen';
+                                            }
+                                        }
+                                    });
+                                });
+
+                              
+
+                                const resetButton = document.querySelector('button[type="reset"]');
+                                if (resetButton) {
+                                    resetButton.addEventListener('click', function () {
+                                        const photoPreview = document.getElementById('photoPreview');
+                                        const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+                                        if (photoPreview && uploadPlaceholder) {
+                                            photoPreview.style.display = 'none';
+                                            uploadPlaceholder.style.display = 'block';
+                                        }
+
+                                        const fileNames = document.querySelectorAll('.file-name');
+                                        fileNames.forEach(el => {
+                                            el.textContent = 'No file chosen';
+                                            el.classList.remove('has-file');
+                                            el.innerHTML = 'No file chosen';
+                                        });
+
+                                        const steps = document.querySelectorAll('.step');
+                                        steps.forEach((step, index) => {
+                                            if (index === 0) {
+                                                step.classList.add('active');
+                                            } else {
+                                                step.classList.remove('active');
+                                            }
+                                        });
+                                    });
+                                }
+                            });
+                        </script>
+    </body>
+
+</html>

@@ -136,7 +136,7 @@
 
         .admin-sidebar {
             width: var(--admin-sidebar-width);
-            background: linear-gradient(180deg, var(--admin-primary-color) 0%, var(--admin-secondary-color) 100%);
+            background: #2C3E50;
             color: white;
             height: 100vh;
             position: fixed;
@@ -300,8 +300,6 @@
             min-height: 100vh;
         }
 
-        
-
         .admin-dashboard-container {
             display: flex;
         }
@@ -324,67 +322,6 @@
             font-weight: 600;
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: white;
-            border-radius: var(--admin-border-radius);
-            padding: 20px;
-            box-shadow: var(--admin-card-shadow);
-            display: flex;
-            align-items: center;
-        }
-
-        .stat-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin-right: 15px;
-        }
-
-        .stat-info {
-            flex: 1;
-        }
-
-        .stat-value {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            color: #6c757d;
-            font-size: 14px;
-        }
-
-        .users-icon {
-            background: rgba(52, 152, 219, 0.1);
-            color: var(--admin-accent-color);
-        }
-
-        .revenue-icon {
-            background: rgba(46, 204, 113, 0.1);
-            color: var(--admin-success-color);
-        }
-
-        .orders-icon {
-            background: rgba(241, 196, 15, 0.1);
-            color: #f1c40f;
-        }
-
-        .pending-icon {
-            background: rgba(231, 76, 60, 0.1);
-            color: var(--admin-danger-color);
-        }
 
         @media (max-width: 576px) {
             :root {
@@ -430,8 +367,7 @@
             }
 
             .admin-main-content,
-            .admin-header,
-            .admin-footer {
+            .admin-header {
                 margin-left: 220px;
             }
         }
@@ -460,8 +396,7 @@
             }
 
             .admin-main-content,
-            .admin-header,
-            .admin-footer {
+            .admin-header {
                 margin-left: 70px;
             }
 
@@ -500,16 +435,11 @@
             }
 
             .admin-main-content,
-            .admin-header,
-            .admin-footer {
+            .admin-header {
                 margin-left: 0;
             }
 
             .admin-header {
-                left: 0;
-            }
-
-            .admin-footer {
                 left: 0;
             }
 
@@ -595,107 +525,89 @@
         </div>
         <div class="admin-header-right">
             <div class="admin-user-info">
-                <a href=""></a> <img src="https://img.freepik.com/free-vector/business-user-shield_78370-7029.jpg"
-                    alt="User"></a>
+                <img src="https://img.freepik.com/free-vector/business-user-shield_78370-7029.jpg" alt="User">
+                <span>Admin User</span>
             </div>
         </div>
     </div>
 
-    <div class="admin-dashboard-container">
-        <div class="admin-sidebar" id="admin-sidebar">
-            <div class="admin-sidebar-header">
-                <h3><i class="fas fa-chart-pie"></i> <span>AdminPro</span></h3>
-            </div>
-            <div class="admin-sidebar-menu">
-                <a href="/coolmate/admin" class="admin-menu-item active">
-                    <i class="fas fa-home"></i>
-                    <span>Dashboard</span>
-                </a>
-
-                <div class="admin-menu-item" onclick="toggleAdminSubmenu('users')">
-                    <i class="fas fa-users"></i>
-                    <span>Users</span>
-                    <i class="fas fa-chevron-down" style="margin-left: auto;"></i>
-                </div>
-                <div class="admin-submenu" id="users-submenu">
-                    <a href="#all-users" class="admin-submenu-item active">All Users</a>
-                    <a href="#admins" class="admin-submenu-item">Admins</a>
-                    <a href="#customers" class="admin-submenu-item">Customers</a>
-                    <a href="#moderators" class="admin-submenu-item">Moderators</a>
-                </div>
-
-                <div class="admin-menu-item" onclick="toggleAdminSubmenu('services')">
-                    <i class="fas fa-concierge-bell"></i>
-                    <span>Services</span>
-                    <i class="fas fa-chevron-down" style="margin-left: auto;"></i>
-                </div>
-                <div class="admin-submenu" id="services-submenu">
-                    <a href="/coolmate/admin/service-list" class="admin-submenu-item">All Services</a>
-                    <a href="/coolmate/admin/add-service" class="admin-submenu-item">Add New </a>
-
-                </div>
-
-                <div class="admin-menu-item" onclick="toggleAdminSubmenu('booking')">
-                    <i class="fas fa-calendar-check"></i>
-                    <span>Booking</span>
-                    <i class="fas fa-chevron-down" style="margin-left: auto;"></i>
-                </div>
-                <div class="admin-submenu" id="booking-submenu">
-                    <a href="/coolmate/admin/booking" class="admin-submenu-item">All Bookings</a>
-                    <a href="#pending-bookings" class="admin-submenu-item"> Add New</a>
-
-                </div>
-
-
-                <a href="/coolmate/admin/report" class="admin-menu-item">
-                    <i class="fas fa-flag"></i>
-                    <span> Report</span>
-                </a>
-
-                <a href="/coolmate/admin/make-invoice" class="admin-menu-item">
-                    <i class="fa-solid fa-file-invoice"></i>
-                    <span>Make Invoice</span>
-                </a>
-
-
-                <a href="/coolmate/admin/report" class="admin-menu-item">
-                    <i class="fas fa-cog"></i>
-                    <span>Settings</span>
-                </a>
-
-
-                <a href="/logout" class="admin-menu-item">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Logout</span>
-                </a>
-
-            </div>
+    <div class="admin-sidebar" id="admin-sidebar">
+        <div class="admin-sidebar-header">
+            <h3><i class="fas fa-chart-pie"></i> <span>AdminPro</span></h3>
         </div>
+        <div class="admin-sidebar-menu">
+            <a href="/coolmate/admin" class="admin-menu-item active">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <div class="admin-menu-item" onclick="toggleAdminSubmenu('users')">
+                <i class="fas fa-users"></i>
+                <span>Users</span>
+                <i class="fas fa-chevron-down" style="margin-left: auto;"></i>
+            </div>
+            <div class="admin-submenu" id="users-submenu">
+                <a href="#all-users" class="admin-submenu-item active">All Users</a>
+                <a href="#admins" class="admin-submenu-item">Admins</a>
+                <a href="#customers" class="admin-submenu-item">Customers</a>
+                <a href="#moderators" class="admin-submenu-item">Moderators</a>
+            </div>
+
+            <div class="admin-menu-item" onclick="toggleAdminSubmenu('students')">
+                <i class="fa-solid fa-user-graduate"></i>
+                <span>Students</span>
+                <i class="fas fa-chevron-down" style="margin-left: auto;"></i>
+            </div>
+            <div class="admin-submenu" id="students-submenu">
+                <a href="/dnsmadrasah.org/dns-admin/student-list" class="admin-submenu-item">All Students</a>
+                <a href="/dnsmadrasah.org/dns-admin/add-student" class="admin-submenu-item">Add New</a>
+            </div>
+
+            <div class="admin-menu-item" onclick="toggleAdminSubmenu('results')">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Student's Results</span>
+                <i class="fas fa-chevron-down" style="margin-left: auto;"></i>
+            </div>
+            <div class="admin-submenu" id="results-submenu">
+                <a href="/dnsmadrasah.org/dns-admin/student-result" class="admin-submenu-item">All Results</a>
+                <a href="/dnsmadrasah.org/dns-admin/result/add-new" class="admin-submenu-item">Add New</a>
+            </div>
+
+            <div class="admin-menu-item" onclick="toggleAdminSubmenu('fees')">
+                <i class="fa-solid fa-building-columns"></i>
+                <span>Fees Management</span>
+                <i class="fas fa-chevron-down" style="margin-left: auto;"></i>
+            </div>
+            <div class="admin-submenu" id="fees-submenu">
+                <a href="/dnsmadrasah.org/dns-admin/all-fees" class="admin-submenu-item">All Fees</a>
+                <a href="/dnsmadrasah.org/dns-admin/fee-structure" class="admin-submenu-item">Add new </a>
+
+            </div>
 
 
 
+            <a href="#" class="admin-menu-item" onclick="logoutConfirm()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
     </div>
 
-    
 
     <script>
-        // Toggle submenu
         function toggleAdminSubmenu(id) {
             const submenu = document.getElementById(`${id}-submenu`);
             const allSubmenus = document.querySelectorAll('.admin-submenu');
 
-            // Close all other submenus
             allSubmenus.forEach(sub => {
                 if (sub.id !== `${id}-submenu` && sub.classList.contains('open')) {
                     sub.classList.remove('open');
                 }
             });
 
-            // Toggle the clicked submenu
             submenu.classList.toggle('open');
         }
 
-        // Toggle sidebar on mobile and tablet
         function toggleAdminSidebar() {
             const sidebar = document.getElementById('admin-sidebar');
             const overlay = document.getElementById('admin-overlay');
@@ -703,60 +615,48 @@
             sidebar.classList.toggle('open');
             overlay.classList.toggle('active');
 
-            // Prevent body scrolling when sidebar is open on mobile
             if (window.innerWidth < 768) {
                 document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
             }
         }
 
-        // Close sidebar when clicking on overlay
         document.getElementById('admin-overlay').addEventListener('click', function () {
             toggleAdminSidebar();
         });
 
-        // Add active class to menu items
         document.querySelectorAll('.admin-menu-item').forEach(item => {
             item.addEventListener('click', function (e) {
-                // Don't toggle if it's a parent of a submenu
                 if (this.querySelector('.fa-chevron-down')) {
                     e.preventDefault();
                     return;
                 }
 
-                // Remove active class from all menu items
                 document.querySelectorAll('.admin-menu-item').forEach(i => {
                     i.classList.remove('active');
                 });
 
-                // Add active class to clicked menu item
                 this.classList.add('active');
 
-                // Close sidebar after selection on mobile
                 if (window.innerWidth < 768) {
                     toggleAdminSidebar();
                 }
             });
         });
 
-        // Add active class to submenu items
         document.querySelectorAll('.admin-submenu-item').forEach(item => {
             item.addEventListener('click', function () {
-                // Remove active class from all submenu items
                 document.querySelectorAll('.admin-submenu-item').forEach(i => {
                     i.classList.remove('active');
                 });
 
-                // Add active class to clicked submenu item
                 this.classList.add('active');
 
-                // Close sidebar after selection on mobile
                 if (window.innerWidth < 768) {
                     toggleAdminSidebar();
                 }
             });
         });
 
-        // Close sidebar when clicking outside on mobile
         document.addEventListener('click', function (event) {
             const sidebar = document.getElementById('admin-sidebar');
             const toggleBtn = document.querySelector('.admin-toggle-sidebar');
@@ -769,7 +669,6 @@
             }
         });
 
-        // Adjust sidebar on window resize
         window.addEventListener('resize', function () {
             const sidebar = document.getElementById('admin-sidebar');
             const overlay = document.getElementById('admin-overlay');
@@ -780,6 +679,26 @@
                 document.body.style.overflow = '';
             }
         });
+
+        const logoutConfirm = () => {
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, Logout!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    window.location.href = '/logout'
+                }
+            });
+        }
+
+
     </script>
 </body>
 

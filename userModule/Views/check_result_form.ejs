@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Result Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: white;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(to right, #1a3a8f, #2a5ab5);
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            background: white;
+            padding: 5px;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .logo-text p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .accreditation {
+            font-size: 0.75rem;
+            text-align: right;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .form-container {
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1a3a8f;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .result-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+            color: #495057;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #1a3a8f;
+            box-shadow: 0 0 0 2px rgba(26, 58, 143, 0.2);
+        }
+
+        .submit-btn {
+            background: linear-gradient(to right, #1a8f4a, #2ab565);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            align-self: flex-end;
+            margin-top: 24px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .student-info {
+            padding: 20px 25px;
+            background-color: #f8f9fa;
+            display: none;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .info-item {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .info-item h3 {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-item p {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .result-container {
+            padding: 25px;
+            text-align: center;
+            display: none;
+        }
+
+        .result-image {
+            width: 100%;
+            max-width: 700px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            display: block;
+            border: 1px solid #e9ecef;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 22px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .download-btn {
+            background: linear-gradient(to right, #1a8f4a, #2ab565);
+            color: white;
+        }
+
+        .back-btn {
+            background: linear-gradient(to right, #8f1a3a, #b52a5a);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #f8f9fa;
+            color: #6c757d;
+            font-size: 0.75rem;
+            border-top: 1px solid #e9ecef;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .logo-container {
+                justify-content: center;
+            }
+
+            .logo {
+                width: 60px;
+                height: 60px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.4rem;
+            }
+
+            .accreditation {
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            .result-form {
+                flex-direction: column;
+            }
+
+            .form-group {
+                min-width: 100%;
+            }
+
+            .submit-btn {
+                width: 100%;
+                justify-content: center;
+                margin-top: 10px;
+            }
+
+            .student-info {
+                flex-direction: column;
+            }
+
+            .info-item {
+                min-width: 100%;
+            }
+
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 15px 20px;
+            }
+
+            .logo {
+                width: 50px;
+                height: 50px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.3rem;
+            }
+
+            .form-container,
+            .student-info,
+            .result-container {
+                padding: 15px 20px;
+            }
+
+            .btn {
+                padding: 8px 18px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+
+    <% if (messages.success) { %>
+        <script>
+            Swal.fire({
+                toast: true,
+                position: "top-end",
+                icon: "success",
+                title: "<%= messages.success %>",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: "#ffffff",
+                iconColor: "#00b894",
+                color: "#333",
+                customClass: {
+                    popup: 'custom-swal-toast'
+                },
+                didOpen: (toast) => {
+                    toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                    toast.style.borderRadius = '8px';
+                    toast.style.padding = '0.75rem 1.25rem';
+                }
+            });
+        </script>
+        <% } %>
+
+
+            <% if (messages.error) { %>
+                <script>
+                    Swal.fire({
+                        toast: true,
+                        position: "top-end",
+                        icon: "error",
+                        title: "<%= messages.error %>",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        background: "#ffffff",
+                        iconColor: "#red",
+                        color: "#333",
+                        customClass: {
+                            popup: 'custom-swal-toast'
+                        },
+                        didOpen: (toast) => {
+                            toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                            toast.style.borderRadius = '8px';
+                            toast.style.padding = '0.75rem 1.25rem';
+                        }
+                    });
+                </script>
+                <% } %>
+
+
+
+
+                    <div class="container">
+                        <div class="header">
+                            <div class="logo-container">
+                                <div class="logo">
+                                    <img src="https://dnsmadrasah.org/wp-content/uploads/2025/07/WhatsApp-Image-2025-07-23-at-9.38.06-AM-1.jpeg"
+                                        alt="School Logo">
+                                </div>
+                                <div class="logo-text">
+                                    <h1>Student Result Portal</h1>
+                                    <p>Academic Year 2023-2024</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-container">
+                            <div class="form-title">Check Your Result</div>
+                            <form class="result-form" id="resultForm" method="post"
+                                action="/dnsmadrasah.org/result-check">
+
+                                <div class="form-group">
+                                    <label for="class">Class</label>
+                                    <select class="form-control" id="class" required name="student_class">
+                                        <option value="">Select your class</option>
+                                        <option value="Class 1">Class 1</option>
+                                        <option value="Class 2">Class 2</option>
+                                        <option value="Class 3">Class 3</option>
+                                        <option value="Class 4">Class 4</option>
+                                        <option value="Class 5">Class 5</option>
+                                        <option value="Class 6">Class 6</option>
+                                        <option value="Class 7">Class 7</option>
+                                        <option value="Class 8">Class 8</option>
+                                        <option value="Class 9">Class 9</option>
+                                        <option value="Class 10">Class 10</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="rollNo">Roll Number</label>
+                                    <input type="text" class="form-control" id="rollNo"
+                                        placeholder="Enter your roll number" required name="roll_number">
+                                </div>
+                                <div class="form-group">
+                                    <label for="porterId">Student Porter ID</label>
+                                    <input type="text" class="form-control" id="porterId"
+                                        placeholder="Enter your porter ID" required name="student_portal_no">
+                                </div>
+
+                                <button type="submit" class="submit-btn">
+                                    <i class="fas fa-search"></i> Check Result
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="student-info" id="studentInfo">
+                            <div class="info-item">
+                                <h3>Student Name</h3>
+                                <p id="studentName">-</p>
+                            </div>
+                            <div class="info-item">
+                                <h3>Roll Number</h3>
+                                <p id="displayRollNo">-</p>
+                            </div>
+                            <div class="info-item">
+                                <h3>Porter ID</h3>
+                                <p id="displayPorterId">-</p>
+                            </div>
+                            <div class="info-item">
+                                <h3>Class</h3>
+                                <p id="displayClass">-</p>
+                            </div>
+                            <div class="info-item">
+                                <h3>Overall Grade</h3>
+                                <p id="overallGrade">-</p>
+                            </div>
+                        </div>
+
+                        <div class="result-container" id="resultContainer">
+                            <h2 style="color: #1a3a8f; margin-bottom: 20px;">Your Academic Result</h2>
+                            <img src="https://via.placeholder.com/700x400.png?text=Student+Result+Card"
+                                alt="Result Card" class="result-image">
+                            <div class="buttons">
+                                <button class="btn download-btn">
+                                    <i class="fas fa-download"></i> Download Result
+                                </button>
+                                <button class="btn back-btn" id="backBtn">
+                                    <i class="fas fa-arrow-left"></i> Check Another Result
+                                </button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+</body>
+
+</html>

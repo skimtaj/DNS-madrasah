@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Result Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+
+        .header {
+            background: linear-gradient(to right, #1a3a8f, #2a5ab5);
+            color: white;
+            padding: 20px 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 1.6rem;
+            margin-bottom: 4px;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .student-info {
+            padding: 20px 25px;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .info-item {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .info-item h3 {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-item p {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #495057;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .student-name {
+            background: linear-gradient(to right, #fff9e6, #fff0cc);
+            border-left: 4px solid #ffcc00;
+            color: #996600;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .student-name::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%);
+            background-size: 200% 200%;
+            animation: shimmer 3s infinite;
+            border-radius: 6px;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        .result-container {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .result-image {
+            width: 100%;
+            max-width: 700px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            display: block;
+            border: 1px solid #e9ecef;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 22px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .download-btn {
+            background: linear-gradient(to right, #1a8f4a, #2ab565);
+            color: white;
+        }
+
+        .back-btn {
+            background: linear-gradient(to right, #8f1a3a, #b52a5a);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #f8f9fa;
+            color: #6c757d;
+            font-size: 0.75rem;
+            border-top: 1px solid #e9ecef;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.4rem;
+            }
+
+            .student-info {
+                flex-direction: column;
+            }
+
+            .info-item {
+                min-width: 100%;
+            }
+
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 15px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.3rem;
+            }
+
+            .student-info,
+            .result-container {
+                padding: 15px 20px;
+            }
+
+            .btn {
+                padding: 8px 18px;
+                font-size: 0.8rem;
+            }
+
+            .result-image {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Student Result Portal</h1>
+            <p>Academic Year 2025</p>
+        </div>
+
+        <div class="student-info">
+            <div class="info-item">
+                <p class="student-name">
+                    <b>Name :</b>
+                    <%=studentResultSourse.student_name%>
+                </p>
+            </div>
+            <div class="info-item">
+                <p>
+                    <b>Class :</b>
+                    <%=studentResultSourse.student_class%>
+                </p>
+            </div>
+            <div class="info-item">
+                <p>
+                    <b>Roll Number :</b>
+                    <%=studentResultSourse.roll_number%>
+                </p>
+            </div>
+        </div>
+
+        <div class="result-container">
+            <img src="/Uploads/<%=studentResultSourse.marktSheetUplod%>" alt="Student Result" class="result-image">
+
+            <div class="buttons">
+                <button onclick="window.location.href='/download-result/<%= studentResultSourse._id %>'"
+                    class="btn download-btn">
+                    Download Result
+                </button>
+
+
+                <button onclick="window.location.href='/dnsmadrasah.org/result-check'" class="btn back-btn">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

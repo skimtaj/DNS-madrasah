@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Registration Form | Dar Un Neda Siddiquia Madrasa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        :root {
+            --primary-color: #1b8c4a;
+            --primary-dark: #14733d;
+            --light-bg: #f8fff8;
+            --text-dark: #155a2d;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 15px 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 5px;
+            overflow: hidden;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .header-text {
+            flex: 1;
+        }
+
+        .header h2 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 0.85rem;
+            margin-bottom: 3px;
+        }
+
+        .help-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .help-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .form-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: var(--text-dark);
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+        }
+
+        .form-control,
+        .form-select {
+            font-size: 0.85rem;
+            padding: 8px 12px;
+        }
+
+        .btn-custom {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+            font-size: 0.85rem;
+            padding: 8px 20px;
+        }
+
+        .btn-custom:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-outline-custom {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            font-size: 0.85rem;
+            padding: 8px 20px;
+        }
+
+        .btn-outline-custom:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .bilingual {
+            font-size: 0.8rem;
+            color: #e0e0e0;
+        }
+
+        h5 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .section-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .step {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .step.active {
+            background-color: #D32F2E;
+            color: white;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+
+        .profile-image-upload {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-image-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px dashed #ccc;
+        }
+
+        .profile-image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-image-preview i {
+            font-size: 2rem;
+            color: #aaa;
+        }
+
+        .upload-btn {
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .upload-btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        .modal-content {
+            border-radius: 10px;
+        }
+
+        .modal-header {
+            background-color: var(--primary-color);
+            color: white;
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .modal-title {
+            font-weight: 600;
+        }
+
+        .instruction-list {
+            padding-left: 20px;
+        }
+
+        .instruction-list li {
+            margin-bottom: 10px;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Payment Section Styles */
+        .payment-details {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .qr-code {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .qr-code img {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .qr-code img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .qr-code i {
+            font-size: 3rem;
+            color: #aaa;
+        }
+
+        .payment-screenshot-upload {
+            margin-top: 25px;
+        }
+
+        .screenshot-preview {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            background-color: #f0f0f0;
+            margin: 15px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px dashed #ccc;
+        }
+
+        .screenshot-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .screenshot-preview i {
+            font-size: 2.5rem;
+            color: #aaa;
+        }
+
+        .bank-detail-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .bank-detail-item strong {
+            color: var(--text-dark);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .bank-detail-item p {
+            margin: 0;
+            color: #555;
+        }
+
+        /* Simplified file input styles */
+        .file-input-container {
+            margin-bottom: 15px;
+        }
+
+        .file-input-container .form-label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .file-input-container .form-control {
+            display: block;
+            width: 100%;
+        }
+
+        .file-input-container .form-text {
+            margin-top: 5px;
+            font-size: 0.75rem;
+            color: #6c757d;
+        }
+
+        /* Validation Styles */
+        .is-invalid {
+            border-color: #dc3545 !important;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath d='m5.8 3.6.4.4.4-.4'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(0.375em + 0.1875rem) center;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+        }
+
+        .is-valid {
+            border-color: #198754 !important;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(0.375em + 0.1875rem) center;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+        }
+
+        .invalid-feedback {
+            display: none;
+            width: 100%;
+            margin-top: 0.25rem;
+            font-size: 0.75rem;
+            color: #dc3545;
+        }
+
+        .is-invalid~.invalid-feedback {
+            display: block;
+        }
+
+        .required-field::after {
+            content: " *";
+            color: #dc3545;
+        }
+
+        /* Mobile-specific adjustments */
+        @media (max-width: 768px) {
+            .header {
+                padding: 12px 8px;
+            }
+
+            .header h2 {
+                font-size: 1.2rem;
+            }
+
+            .header p {
+                font-size: 0.8rem;
+            }
+
+            .logo {
+                width: 50px;
+                height: 50px;
+                font-size: 0.7rem;
+                margin-right: 10px;
+            }
+
+            .help-btn {
+                width: 35px;
+                height: 35px;
+                top: 10px;
+                right: 10px;
+            }
+
+            .form-section {
+                padding: 15px;
+            }
+
+            .form-label {
+                font-size: 0.8rem;
+            }
+
+            .form-control,
+            .form-select {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+
+            .btn-custom,
+            .btn-outline-custom {
+                font-size: 0.8rem;
+                padding: 7px 16px;
+            }
+
+            .step {
+                width: 25px;
+                height: 25px;
+                font-size: 0.7rem;
+            }
+
+            .profile-image-preview {
+                width: 100px;
+                height: 100px;
+            }
+
+            .qr-code img {
+                width: 180px;
+                height: 180px;
+            }
+
+            .bank-detail-item {
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo {
+                margin-right: 0;
+                margin-bottom: 8px;
+                margin-right: 8px;
+            }
+
+            .header h2 {
+                font-size: 1.1rem;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .navigation-buttons .btn {
+                width: 100%;
+            }
+
+            .bank-detail-item {
+                flex-direction: column;
+            }
+
+            .qr-code img {
+                width: 160px;
+                height: 160px;
+            }
+        }
+
+        /* QR Code Clickable Styles */
+        .qr-code-container {
+            position: relative;
+        }
+
+        .qr-code-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+
+        .qr-code-container:hover .qr-code-overlay {
+            opacity: 1;
+        }
+
+        .qr-code-overlay-text {
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .qr-code-overlay-text i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<% if (messages.success) { %>
+                        <script>
+                            Swal.fire({
+                                toast: true,
+                                position: "top-end",
+                                icon: "success",
+                                title: "<%= messages.success %>",
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                background: "#ffffff",
+                                iconColor: "#00b894",
+                                color: "#333",
+                                customClass: {
+                                    popup: 'custom-swal-toast'
+                                },
+                                didOpen: (toast) => {
+                                    toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                                    toast.style.borderRadius = '8px';
+                                    toast.style.padding = '0.75rem 1.25rem';
+                                }
+                            });
+                        </script>
+                        <% } %>
+
+
+
+                        <% if (messages.error) { %>
+                        <script>
+                            Swal.fire({
+                                toast: true,
+                                position: "top-end",
+                                icon: "error",
+                                title: "<%= messages.error %>",
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                background: "#ffffff",
+                                iconColor: "#red",
+                                color: "#333",
+                                customClass: {
+                                    popup: 'custom-swal-toast'
+                                },
+                                didOpen: (toast) => {
+                                    toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                                    toast.style.borderRadius = '8px';
+                                    toast.style.padding = '0.75rem 1.25rem';
+                                }
+                            });
+                        </script>
+                        <% } %>
+
+
+
+
+    <div class="container py-3">
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src='https://dnsmadrasah.org/wp-content/uploads/2025/07/WhatsApp-Image-2025-10-22-at-9.25.10-AM-1024x1024.jpeg'
+                        alt="Madrasa Logo">
+                </div>
+                <div class="header-text">
+                    <h2>দারুন্নেদা সিদ্দিকীয়া মাদ্রাসা</h2>
+                    <p class="mb-0">Student Registration Form - 2026 </p>
+                </div>
+            </div>
+            <button class="help-btn" id="helpButton">
+                <i class="fas fa-question"></i>
+            </button>
+        </div>
+
+        <!-- Section Indicator -->
+        <div class="section-indicator">
+            <div class="step active" data-section="1">1</div>
+            <div class="step" data-section="2">2</div>
+            <div class="step" data-section="3">3</div>
+            <div class="step" data-section="4">4</div>
+        </div>
+
+        <form id="registrationForm" method="post" action="/dnsmadrasah.org/student-registration"
+            enctype="multipart/form-data" novalidate>
+            <!-- Section 1: Student Information -->
+            <div class="form-section active" id="section-1">
+                <h5 class="mb-3 text-success">Student Info / ছাত্রের তথ্য</h5>
+
+                <!-- Profile Image Upload -->
+                <div class="profile-image-upload">
+                    <div class="file-input-container">
+                        <label class="form-label required-field">Upload Photo / ছবি আপলোড করুন</label>
+                        <input type="file" class="form-control" id="profileImage" accept="image/*" name="student_image"
+                            required>
+                        <div class="invalid-feedback">Please upload a profile photo.</div>
+                        <div class="form-text">File formats: JPG, PNG (Max 2MB)</div>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <label class="form-label required-field">Student's Name / ছাত্রের নাম </label>
+                        <input type="text" class="form-control" name="student_name" required>
+                        <div class="invalid-feedback">Please enter student's name.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required-field">Class Applied For / কোন শ্রেণিতে ভর্তি
+                            আবেদন</label>
+                        <select class="form-select" name="applied_class" required>
+                            <option value="" selected>Select Class / শ্রেণি নির্বাচন করুন</option>
+                            <option value="Class IV">Class IV</option>
+                            <option value="Class V">Class V</option>
+                            <option value="Class VI">Class VI</option>
+                            <option value="Class VII">Class VII</option>
+                            <option value="Class VIII">Class VIII</option>
+                            <option value="Class IX">Class IX</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a class.</div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label required-field">Date of Birth / জন্ম তারিখ</label>
+                        <input type="date" class="form-control" id='dob' oninput="ageCalculate()" name="dob" required>
+                        <div class="invalid-feedback">Please select date of birth.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required-field">Age / বয়স</label>
+                        <input type="number" class="form-control" min="3" id="age" name="age" required>
+                        <div class="invalid-feedback">Please enter age.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required-field">Bangla Shiksha Portal No. / বাংলা
+                            শিক্ষা পোর্টাল
+                            নম্বর</label>
+                        <input type="text" class="form-control" name="Bangla_Shiksha_Portal" required>
+                        <div class="invalid-feedback">Please enter Bangla Shiksha Portal number.</div>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label required-field">Nationality / জাতীয়তা</label>
+                        <input type="text" class="form-control" value='Indian' readonly name="nationality" required>
+                    </div>
+
+                    <!-- Student Address Section -->
+                    <div class="col-12 mt-3">
+                        <h6 class="text-success">Student Address / ছাত্রের ঠিকানা</h6>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required-field">Village / গ্রাম</label>
+                        <input type="text" class="form-control" name="Village" required>
+                        <div class="invalid-feedback">Please enter village name.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required-field">Post Office / পোস্ট অফিস</label>
+                        <input type="text" class="form-control" name="post" required>
+                        <div class="invalid-feedback">Please enter post office name.</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label required-field">Police Station / থানা</label>
+                        <input type="text" class="form-control" name="ps" required>
+                        <div class="invalid-feedback">Please enter police station name.</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label required-field">District / জেলা</label>
+                        <input type="text" class="form-control" name="District" required>
+                        <div class="invalid-feedback">Please enter district name.</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label required-field">PIN Code / পিন কোড</label>
+                        <input type="text" class="form-control" name="PIN_Code" pattern="[0-9]{6}" required>
+                        <div class="invalid-feedback">Please enter a valid 6-digit PIN code.</div>
+                    </div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <div></div> <!-- Empty div for spacing -->
+                    <button type="button" class="btn btn-custom next-section" data-next="2">Next /
+                        পরবর্তী</button>
+                </div>
+            </div>
+
+            <!-- Section 2: Parent / Guardian Information -->
+            <div class="form-section" id="section-2">
+                <h5 class="mb-3 text-success"> Guardian Info/ অভিভাবকের তথ্য</h5>
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <label class="form-label required-field">Guardian Name / পিতা বা মাতার নাম
+                        </label>
+                        <input type="text" class="form-control" name="Guardian_Name" required>
+                        <div class="invalid-feedback">Please enter guardian name.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required-field">Relation with Student / ছাত্রের সঙ্গে
+                            সম্পর্ক</label>
+                        <select class="form-select" name="Relation_with_Student" required>
+                            <option value="" selected>Select Relation / সম্পর্ক নির্বাচন করুন</option>
+                            <option value='Father'>Father / পিতা</option>
+                            <option value='Mother'>Mother / মাতা</option>
+                            <option value='Guardian'>Guardian / অভিভাবক</option>
+                            <option value='Other'>Other / অন্যান্য</option>
+                        </select>
+                        <div class="invalid-feedback">Please select relation with student.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required-field">Occupation / পেশা</label>
+                        <select class="form-select" name="occupation" required>
+                            <option value="" selected>Select Occupation / পেশা নির্বাচন করুন</option>
+                            <option value="Student">Student / ছাত্র</option>
+                            <option value="Teacher">Teacher / শিক্ষক</option>
+                            <option value="Farmer">Farmer / কৃষক</option>
+                            <option value="Businessman">Businessman / ব্যবসায়ী</option>
+                            <option value="Engineer">Engineer / প্রকৌশলী</option>
+                            <option value="Doctor">Doctor / ডাক্তার</option>
+                            <option value="Service Holder">Service Holder / চাকরিজীবী</option>
+                            <option value="Driver">Driver / চালক</option>
+                            <option value="Housewife">Housewife / গৃহিণী</option>
+                            <option value="Day Labourer">Day Labourer / দিনমজুর</option>
+                            <option value="Other">Other / অন্যান্য</option>
+                        </select>
+                        <div class="invalid-feedback">Please select occupation.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required-field">Mobile No. / মোবাইল নম্বর</label>
+                        <input type="tel" class="form-control" name="Mobile_No" pattern="[0-9]{10}" required>
+                        <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required-field">WhatsApp No. / হোয়াটসঅ্যাপ
+                            নম্বর</label>
+                        <input type="tel" class="form-control" name="WhatsApp_No" pattern="[0-9]{10}" required>
+                        <div class="invalid-feedback">Please enter a valid 10-digit WhatsApp number.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <button type="button" class="btn btn-outline-custom prev-section" data-prev="1">Previous /
+                        পূর্ববর্তী</button>
+                    <button type="button" class="btn btn-custom next-section" data-next="3">Next /
+                        পরবর্তী</button>
+                </div>
+            </div>
+
+            <!-- Section 3: Additional Details -->
+            <div class="form-section" id="section-3">
+                <h5 class="mb-3 text-success">Student's Additional Info / অতিরিক্ত তথ্য</h5>
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <label class="form-label required-field">Aadhaar Number / আধার নম্বর</label>
+                        <input type="text" class="form-control" name="Aadhaar_Number" pattern="[0-9]{12}" required>
+                        <div class="invalid-feedback">Please enter a valid 12-digit Aadhaar number.
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label required-field">Bank Account No. / ব্যাংক অ্যাকাউন্ট
+                            নম্বর</label>
+                        <input type="text" class="form-control" name="bank_ac_no" required>
+                        <div class="invalid-feedback">Please enter bank account number.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required-field">IFSC Code / আই এফ এস সি কোড</label>
+                        <input type="text" class="form-control" name="ifsc_code" required>
+                        <div class="invalid-feedback">Please enter IFSC code.</div>
+                    </div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <button type="button" class="btn btn-outline-custom prev-section" data-prev="2">Previous /
+                        পূর্ববর্তী</button>
+                    <button type="button" class="btn btn-custom next-section" data-next="4">Next /
+                        পরবর্তী</button>
+                </div>
+            </div>
+
+            <!-- Section 4: Payment Information -->
+            <div class="form-section" id="section-4">
+                <h5 class="mb-3 text-success">Payment Information / পেমেন্ট তথ্য</h5>
+
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label class="form-label required-field">Registration Fee Amount / রেজিস্ট্রেশন
+                            ফি</label>
+                        <div class="input-group">
+                            <span class="input-group-text">₹</span>
+                            <input type="text" class="form-control" value="200" readonly name="regi_fees" required>
+                        </div>
+                    </div>
+
+                    <!-- PhonePe Payment Details -->
+                    <div class="col-12 payment-details">
+                        <h6 class="text-success mb-3">PhonePe Payment / ফোনপে পেমেন্ট</h6>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="qr-code-container text-center">
+                                    <p class="fw-bold mb-3">Scan QR Code to Pay / QR কোড স্ক্যান করে পেমেন্ট করুন</p>
+                                    <div class="qr-code mb-3 position-relative">
+                                        <!-- QR Code with clickable overlay -->
+                                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhPXXBiuwbCE87hqWwCGJdTruA3JRQtZhiz38m_VsP9N_8Y_pVu9ja-t1PttwpBojCqMlUmTgUG8CyaRCW9K1VoZPpp5lH7uN96QIafOYzbzcYBrY0JjoaEgf2tJ7iNChSGV01M0ZHrFVgYCbQfpQEH4n_LyVEtB3uvMMeI3UdYGD3hShEYFbXQheFVSd97/w640-h636/WhatsApp%20Image%202025-10-28%20at%2011.44.39%20AM.jpeg"
+                                            alt="PhonePe QR Code"
+                                            style="width: 200px; height: 200px; border: 1px solid #ddd; border-radius: 8px;"
+                                            id="qrCodeImage">
+                                        <div class="qr-code-overlay" id="qrCodeOverlay">
+                                            <div class="qr-code-overlay-text">
+                                                <i class="fas fa-external-link-alt"></i>
+                                                Click to Open PhonePe<br>
+                                                ক্লিক করুন ফোনপে খুলতে
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="small text-muted">Scan this QR code with PhonePe app or click to open
+                                        PhonePe directly</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="qr-code-container">
+                                    <p class="fw-bold mb-3">Or Pay Manually / অথবা ম্যানুয়ালি পেমেন্ট করুন</p>
+                                    <div class="bank-detail-item mb-3">
+                                        <strong>PhonePe Number:</strong>
+                                        <p class="mb-1">+91 6290606526</p>
+                                    </div>
+                                    <div class="bank-detail-item mb-3">
+                                        <strong>Account Name:</strong>
+                                        <p class="mb-1">Sk Soyeb Aktar</p>
+                                    </div>
+                                    <div class="bank-detail-item">
+                                        <strong>Amount:</strong>
+                                        <p class="mb-1">₹200</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 p-3 bg-light rounded">
+                            <h6 class="text-success mb-2">Payment Instructions / পেমেন্ট নির্দেশাবলী:</h6>
+                            <ul class="small mb-0">
+                                <li>Scan the QR code with PhonePe app or click on QR code to open PhonePe directly</li>
+                                <li>Ensure you pay the exact amount: <strong>₹200</strong></li>
+                                <li>After payment, take a clear screenshot of the payment confirmation</li>
+                                <li>Upload the screenshot in the section below</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Payment Screenshot Upload -->
+                    <div class="col-12 payment-screenshot-upload">
+                        <h6 class="text-success mb-3">Upload Payment Proof / পেমেন্ট স্ক্রীনশর্ট </h6>
+                        <div class="file-input-container">
+                            <input type="file" class="form-control" id="paymentScreenshot" accept="image/*"
+                                name="paymentScreenshot" required>
+                            <div class="invalid-feedback">Please upload payment proof.</div>
+                            <div class="form-text">
+                                আপনার পেমেন্ট নিশ্চিতকরণের পরিষ্কার একটি স্ক্রিনশট দিন।
+                                ফাইল ফরম্যাট: JPG বা PNG (সর্বোচ্চ 2MB)।
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <button type="button" class="btn btn-outline-custom prev-section" data-prev="3">Previous /
+                        পূর্ববর্তী</button>
+                    <button type="submit" class="btn btn-custom">Submit Registration / রেজিস্ট্রেশন জমা
+                        দিন</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Instruction Modal -->
+    <div class="modal fade" id="instructionModal" tabindex="-1" aria-labelledby="instructionModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="instructionModalLabel">ফর্ম ফিলাপের নির্দেশিকা </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 class="text-success mb-3">ফর্ম ফিলাপের আগে দয়া করে নিচের নির্দেশগুলো ভালোভাবে
+                        ফলো করুন </h6>
+                    <ul class="instruction-list">
+                        <li>ফর্মের সব ঘর অবশ্যই ফিলাপ করতে হবে</li>
+                        <li>ফর্মটি সম্পূর্ণ ইংরেজিতে ফিলাপ করুন</li>
+                        <li>ছাত্রের সব তথ্য সঠিকভাবে দিন</li>
+                        <li>ছাত্রের স্পষ্ট ছবি আপলোড করুন</li>
+                        <li>অভিভাবকের সব তথ্য সঠিকভাবে দিন</li>
+                        <li>মোবাইল ও হোয়াটসঅ্যাপ নম্বর সঠিক দিন</li>
+                        <li>ব্যাংক অ্যাকাউন্ট তথ্য ঠিকভাবে লেখুন</li>
+                        <li>জমা দেয়ার আগে সব তথ্য ভালো করে যাচাই করে নিন</li>
+                    </ul>
+
+                    <div class="mt-4">
+                        <h6 class="text-success mb-3"> ফর্ম ফিলাপের ডেমো ভিডিও </h6>
+                        <div class="video-container">
+                            <iframe width="560" height="315"
+                                src="https://www.youtube.com/embed/dPYfhPsREyg?si=bZbeO0t8R1bu-IWe"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-custom" data-bs-dismiss="modal">বুঝেছি /
+                        Understood</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const ageCalculate = () => {
+            const dob = document.getElementById('dob');
+            const age = document.getElementById('age');
+
+            const today = new Date()
+            const currentYear = today.getFullYear();
+
+            const studentDOB = new Date(dob.value)
+            const studentYear = studentDOB.getFullYear();
+            age.value = currentYear - studentYear
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const instructionModal = new bootstrap.Modal(document.getElementById('instructionModal'));
+
+            instructionModal.show();
+
+            document.getElementById('helpButton').addEventListener('click', function () {
+                instructionModal.show();
+            });
+
+            // QR Code Click Functionality
+            const qrCodeImage = document.getElementById('qrCodeImage');
+            const qrCodeOverlay = document.getElementById('qrCodeOverlay');
+
+            function openPhonePe() {
+                // PhonePe UPI URL scheme
+                const phonePeUrl = "phonepe://pay?pa=6290606526@ibl&pn=Sk%20Soyeb%20Aktar&am=200&cu=INR";
+
+                // Try to open PhonePe app
+                window.location.href = phonePeUrl;
+
+                // Fallback: If PhonePe is not installed, redirect to Play Store
+                setTimeout(function () {
+                    window.location.href = "https://play.google.com/store/apps/details?id=com.phonepe.app";
+                }, 500);
+            }
+
+            // Add click event to both QR code image and overlay
+            qrCodeImage.addEventListener('click', openPhonePe);
+            qrCodeOverlay.addEventListener('click', openPhonePe);
+
+            const nextButtons = document.querySelectorAll('.next-section');
+            const prevButtons = document.querySelectorAll('.prev-section');
+            const steps = document.querySelectorAll('.step');
+
+            function validateSection(sectionId) {
+                const currentSection = document.getElementById(`section-${sectionId}`);
+                const inputs = currentSection.querySelectorAll('input, select, textarea');
+                let isValid = true;
+
+                inputs.forEach(input => {
+                    input.classList.remove('is-invalid');
+                    input.classList.remove('is-valid');
+                });
+
+                inputs.forEach(input => {
+                    if (input.hasAttribute('required') && !input.value.trim()) {
+                        input.classList.add('is-invalid');
+                        isValid = false;
+                    } else if (input.type === 'file' && input.hasAttribute('required') && !input.files.length) {
+                        input.classList.add('is-invalid');
+                        isValid = false;
+                    } else if (input.hasAttribute('pattern')) {
+                        const pattern = new RegExp(input.getAttribute('pattern'));
+                        if (!pattern.test(input.value)) {
+                            input.classList.add('is-invalid');
+                            isValid = false;
+                        } else {
+                            input.classList.add('is-valid');
+                        }
+                    } else if (input.value.trim()) {
+                        input.classList.add('is-valid');
+                    }
+                });
+
+                return isValid;
+            }
+
+            nextButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const currentSection = this.closest('.form-section');
+                    const currentSectionId = currentSection.id.split('-')[1];
+                    const nextSectionId = this.getAttribute('data-next');
+
+                    if (!validateSection(currentSectionId)) {
+                        const firstInvalid = currentSection.querySelector('.is-invalid');
+                        if (firstInvalid) {
+                            firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                        return;
+                    }
+
+                    currentSection.classList.remove('active');
+                    document.getElementById(`section-${nextSectionId}`).classList.add('active');
+                    updateStepIndicator(nextSectionId);
+                });
+            });
+
+            prevButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const currentSection = this.closest('.form-section');
+                    const prevSectionId = this.getAttribute('data-prev');
+
+                    currentSection.classList.remove('active');
+                    document.getElementById(`section-${prevSectionId}`).classList.add('active');
+                    updateStepIndicator(prevSectionId);
+                });
+            });
+
+            steps.forEach(step => {
+                step.addEventListener('click', function () {
+                    const sectionId = this.getAttribute('data-section');
+
+                    document.querySelectorAll('.form-section').forEach(section => {
+                        section.classList.remove('active');
+                    });
+
+                    document.getElementById(`section-${sectionId}`).classList.add('active');
+                    updateStepIndicator(sectionId);
+                });
+            });
+
+            function updateStepIndicator(activeSection) {
+                steps.forEach(step => {
+                    step.classList.remove('active');
+                    if (step.getAttribute('data-section') === activeSection) {
+                        step.classList.add('active');
+                    }
+                });
+            }
+
+            // Real-time validation for fields
+            const form = document.getElementById('registrationForm');
+            const inputs = form.querySelectorAll('input, select, textarea');
+
+            inputs.forEach(input => {
+                input.addEventListener('blur', function () {
+                    if (this.hasAttribute('required') && !this.value.trim()) {
+                        this.classList.add('is-invalid');
+                        this.classList.remove('is-valid');
+                    } else if (this.hasAttribute('pattern')) {
+                        const pattern = new RegExp(this.getAttribute('pattern'));
+                        if (!pattern.test(this.value)) {
+                            this.classList.add('is-invalid');
+                            this.classList.remove('is-valid');
+                        } else {
+                            this.classList.add('is-valid');
+                            this.classList.remove('is-invalid');
+                        }
+                    } else if (this.value.trim()) {
+                        this.classList.add('is-valid');
+                        this.classList.remove('is-invalid');
+                    } else {
+                        this.classList.remove('is-valid');
+                        this.classList.remove('is-invalid');
+                    }
+                });
+            });
+
+            // Form submission validation
+            form.addEventListener('submit', function (e) {
+                let allSectionsValid = true;
+
+                for (let i = 1; i <= 4; i++) {
+                    if (!validateSection(i)) {
+                        allSectionsValid = false;
+                        // Switch to the first invalid section
+                        document.querySelectorAll('.form-section').forEach(section => {
+                            section.classList.remove('active');
+                        });
+                        document.getElementById(`section-${i}`).classList.add('active');
+                        updateStepIndicator(i);
+
+                        const firstInvalid = document.querySelector('.is-invalid');
+                        if (firstInvalid) {
+                            firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                        break;
+                    }
+                }
+
+                if (!allSectionsValid) {
+                    e.preventDefault();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Validation Error',
+                        text: 'Please fill all required fields correctly before submitting.',
+                        confirmButtonColor: '#D32F2E'
+                    });
+                }
+            });
+
+
+
+        });
+    </script>
+</body>
+
+</html>
