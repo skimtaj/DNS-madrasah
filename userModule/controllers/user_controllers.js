@@ -200,7 +200,7 @@ const downloadStudenApplication = async (req, res) => {
     try {
 
         const studentSourse = await student_regi.findById(req.params.id);
-        const inputPdfPath = path.join(__dirname, '../../Aplication_format/Student Registration-2026  (DNS).pdf');
+        const inputPdfPath = path.join(__dirname, '../../Aplication_format/Registration-2026 (DNS) (1).pdf');
         const existingPdfBytes = await fs.readFile(inputPdfPath);
         const pdfDoc = await PDFDocument.load(existingPdfBytes);
         const form = pdfDoc.getForm();
@@ -297,7 +297,6 @@ Application Date: ${studentSourse.application_date}
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename="Student_Application.pdf"');
         res.end(pdfBytes);
-
 
         return res.redirect('/dnsmadrasah.org/student-registration')
 

@@ -334,7 +334,7 @@ const downloadApplication = async (req, res) => {
 
     try {
         const studentSourse = await student_regi.findById(req.params.id);
-        const inputPdfPath = path.join(__dirname, '../../Aplication_format/Student Registration-2026  (DNS).pdf');
+        const inputPdfPath = path.join(__dirname, '../../Aplication_format/Registration-2026 (DNS) (1).pdf');
         const existingPdfBytes = await fs.readFile(inputPdfPath);
         const pdfDoc = await PDFDocument.load(existingPdfBytes);
         const form = pdfDoc.getForm();
@@ -638,7 +638,7 @@ const excelStudent = async (req, res) => {
     })
 
 
-    res.setHeader("Content-Disposition", "attachment; filename=teachers.xlsx");
+    res.setHeader("Content-Disposition", "attachment; filename=students.xlsx");
     await workbook.xlsx.write(res);
     res.end();
 
