@@ -309,8 +309,7 @@ Application Date: ${studentSourse.application_date}
 
         console.log('This is Student pdf generating error', err)
 
-        req.flash('error', 'PDF generation failed. Please refresh the page or try again.')
-        return res.redirect('/dnsmadrasah.org/student-registration')
+
     }
 
 
