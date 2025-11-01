@@ -747,26 +747,25 @@
                         </div>
                         <div class="admin-profile-info">
                             <h3 class="admin-profile-name">
-                                Admin Name<span class="admin-profile-badge">Administrator</span>
+                                <%=adminSourse.name%><span class="admin-profile-badge">Administrator</span>
                             </h3>
                             <div class="admin-profile-details">
                                 <div class="admin-profile-detail">
                                     <i class="fas fa-phone"></i>
                                     <span>
-                                        99878987667
+                                        <%=adminSourse.mobile%>
                                     </span>
                                 </div>
                                 <div class="admin-profile-detail">
                                     <i class="fas fa-envelope"></i>
                                     <span>
-                                        adminemail@gmail.com
+                                        <%=adminSourse.email%>
                                     </span>
                                 </div>
                             </div>
                         </div>
                         <div class="admin-profile-actions">
-                            <button onclick="window.location.href='/coolmate/admin/update-profile'"
-                                class="btn-update-profile">
+                            <button class="btn-update-profile">
                                 <i class="fas fa-user-edit"></i>
                                 Update Profile
                             </button>
@@ -777,10 +776,11 @@
                         <div class="stats-details">
                             <h4 class="stats-value">
                                 <%=toltalStudents%>
-                                    
+
                             </h4>
                             <span class="stats-label">Total Student</span>
-                            <button onclick="window.location.href='/dnsmadrasah.org/dns-admin/student-list'" class="view-details-btn">
+                            <button onclick="window.location.href='/dnsmadrasah.org/dns-admin/student-list'"
+                                class="view-details-btn">
                                 View Details
                             </button>
                         </div>

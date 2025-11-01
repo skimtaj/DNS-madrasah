@@ -113,7 +113,9 @@ const adminDashboard = async (req, res) => {
 
     const toltalStudents = await student_regi.countDocuments();
 
-    res.render('../adminModule/Views/admin_dashboard', { toltalStudents })
+    const adminSourse = await admin_signup_model.findById(req.adminId)
+
+    res.render('../adminModule/Views/admin_dashboard', { toltalStudents, adminSourse })
 
 }
 
@@ -535,7 +537,7 @@ const forgetPassword = async (req, res) => {
             from: process.env.User,
             to: matchEmail.email,
             subject: 'Reset Password - DNS Madrasah',
-            text: `Click the link below to reset your DNS Madrasah account password: \nhttp://localhost:3000/dnsmadrasah.org/reset-password/${matchEmail._id} `
+            text: `Click the link below to reset your DNS Madrasah account password: \nhttps://dns-madrasah.onrender.com/dnsmadrasah.org/reset-password/${matchEmail._id} `
         };
 
         transporter.sendMail(mailOptions, function (error, info) {
