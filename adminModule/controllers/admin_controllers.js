@@ -109,9 +109,11 @@ const adminLoginPost = async (req, res) => {
 
 }
 
-const adminDashboard = (req, res) => {
+const adminDashboard = async (req, res) => {
 
-    res.render('../adminModule/Views/admin_dashboard')
+    const toltalStudents = await student_regi.countDocuments();
+
+    res.render('../adminModule/Views/admin_dashboard', { toltalStudents })
 
 }
 
@@ -184,9 +186,11 @@ const downloadResult = async (req, res) => {
 const studentList = async (req, res) => {
 
 
+    const totalStudents = await student_regi.countDocuments();
+
     const allStudent = await student_regi.find().sort({ _id: -1 })
 
-    res.render('../adminModule/Views/student_list', { allStudent })
+    res.render('../adminModule/Views/student_list', { allStudent, totalStudents })
 
 }
 
@@ -646,7 +650,7 @@ const excelStudent = async (req, res) => {
 const deleteStudent = async (req, res) => {
 
     await student_regi.findByIdAndDelete(req.params.id);
-    req.flash('success', 'Student deleted successfully'); 
+    req.flash('success', 'Student deleted successfully');
     return res.redirect('/dnsmadrasah.org/dns-admin/student-list')
 }
 
