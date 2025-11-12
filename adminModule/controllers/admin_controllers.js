@@ -389,7 +389,7 @@ const downloadApplication = async (req, res) => {
 
 
         firstPage.drawImage(image, {
-            x: 450,
+            x: 508,
             y: 700,
             width: 80,
             height: 80,
