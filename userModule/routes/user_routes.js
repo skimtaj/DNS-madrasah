@@ -46,5 +46,4 @@ route.get('/dnsmadrasah.org/students-application/:id', studentApplication);
 route.get('/download-student-application/:id', downloadStudenApplication)
 
 
-
 module.exports = route

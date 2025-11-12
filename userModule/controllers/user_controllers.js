@@ -246,12 +246,11 @@ const downloadStudenApplication = async (req, res) => {
         }
 
         firstPage.drawImage(image, {
-            x: 450,
+            x: 150,
             y: 700,
             width: 80,
             height: 80,
         });
-
 
 
         const qrcodeGenerat = (text) => {
@@ -302,15 +301,11 @@ Application Date: ${studentSourse.application_date}
 
     }
 
-
     catch (err) {
-
 
         console.log('This is Student pdf generating error', err)
 
-
     }
-
 
 }
 
